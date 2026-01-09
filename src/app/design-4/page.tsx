@@ -376,7 +376,7 @@ export default function Design4() {
             </div>
           </div>
           <div className="border-t border-amber-100 dark:border-white/10 mt-12 pt-8 text-center text-navy-800/40 dark:text-white/40 text-sm">
-            <p>© 2024 The Big Talk. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} The Big Talk. All rights reserved.</p>
           </div>
         </div>
       </footer>

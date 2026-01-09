@@ -318,7 +318,7 @@ export default function Design2() {
                 </button>
               ))}
             </div>
-            <p className="text-gray-400 dark:text-white/40 text-sm">© 2024 The Big Talk</p>
+            <p className="text-gray-400 dark:text-white/40 text-sm">© {new Date().getFullYear()} The Big Talk</p>
           </div>
         </div>
       </footer>
