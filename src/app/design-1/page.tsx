@@ -8,9 +8,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Design1() {
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-gray-50 dark:bg-navy-950 transition-colors duration-300">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-navy-950/80 backdrop-blur-md border-b border-white/5">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-navy-950/80 backdrop-blur-md border-b border-gray-200 dark:border-white/5 transition-colors">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3">
@@ -21,17 +21,17 @@ export default function Design1() {
                 height={40}
                 className="rounded-full"
               />
-              <span className="text-white font-bold tracking-tight">THE BIG TALK</span>
+              <span className="text-navy-900 dark:text-white font-bold tracking-tight">THE BIG TALK</span>
             </Link>
             <div className="hidden md:flex items-center gap-8">
               {["About", "Team", "Programs", "Impact", "Contact"].map((item) => (
-                <button key={item} className="text-white/70 hover:text-white text-sm font-medium transition-colors">
+                <button key={item} className="text-gray-600 dark:text-white/70 hover:text-navy-900 dark:hover:text-white text-sm font-medium transition-colors">
                   {item}
                 </button>
               ))}
             </div>
             <div className="flex items-center gap-4">
-              <ThemeToggle className="text-white" />
+              <ThemeToggle className="text-navy-900 dark:text-white" />
               <Link
                 href="/"
                 className="text-accent-orange text-sm font-medium hover:underline"
@@ -57,10 +57,10 @@ export default function Design1() {
                 CIVIC EDUCATION PLATFORM
               </p>
 
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[0.9] mb-4">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-navy-900 dark:text-white leading-[0.9] mb-4">
                 SIMPLIFYING
                 <br />
-                <span className="text-white/90">THE TALK.</span>
+                <span className="text-navy-700 dark:text-white/90">THE TALK.</span>
               </h1>
 
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-accent-orange leading-[0.9] mb-8 ml-8 md:ml-16">
@@ -70,21 +70,21 @@ export default function Design1() {
               </h2>
 
               <div className="max-w-md">
-                <p className="text-white/60 text-lg leading-relaxed mb-8">
+                <p className="text-gray-600 dark:text-white/60 text-lg leading-relaxed mb-8">
                   Making governance accessible for every Kenyan — because
                   understanding your country isn&apos;t a privilege.
-                  <span className="text-white font-medium"> It&apos;s a right.</span>
+                  <span className="text-navy-900 dark:text-white font-medium"> It&apos;s a right.</span>
                 </p>
 
-                <div className="flex items-center gap-4 text-sm text-white/40 mb-8">
+                <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-white/40 mb-8">
                   <span>Nairobi, Kenya</span>
-                  <span className="w-1 h-1 bg-white/40 rounded-full" />
+                  <span className="w-1 h-1 bg-gray-400 dark:bg-white/40 rounded-full" />
                   <span>Est. 2023</span>
                 </div>
 
-                <div className="h-px bg-white/20 mb-8" />
+                <div className="h-px bg-gray-300 dark:bg-white/20 mb-8" />
 
-                <button className="group flex items-center gap-3 text-white border-2 border-accent-orange px-6 py-3 hover:bg-accent-orange transition-all duration-300">
+                <button className="group flex items-center gap-3 text-navy-900 dark:text-white border-2 border-accent-orange px-6 py-3 hover:bg-accent-orange hover:text-white transition-all duration-300">
                   <span className="font-semibold">Explore Our Work</span>
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </button>
@@ -121,7 +121,7 @@ export default function Design1() {
       </section>
 
       {/* Stats Bar */}
-      <section className="bg-navy-900 border-y border-white/10 py-12">
+      <section className="bg-white dark:bg-navy-900 border-y border-gray-200 dark:border-white/10 py-12 transition-colors">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -133,10 +133,10 @@ export default function Design1() {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <p className="text-3xl md:text-4xl font-bold text-white font-mono mb-2">
+                <p className="text-3xl md:text-4xl font-bold text-navy-900 dark:text-white font-mono mb-2">
                   {stat.value}
                 </p>
-                <p className="text-white/50 text-sm">{stat.label}</p>
+                <p className="text-gray-500 dark:text-white/50 text-sm">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -156,7 +156,7 @@ export default function Design1() {
             <p className="text-accent-orange font-mono text-sm mb-4 tracking-wider">
               OUR VALUES
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
+            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white">
               What We Fight For
             </h2>
           </motion.div>
@@ -169,12 +169,12 @@ export default function Design1() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group bg-navy-900/50 border border-white/10 p-8 hover:border-accent-orange/50 transition-all duration-300"
+                className="group bg-white dark:bg-navy-900/50 border border-gray-200 dark:border-white/10 p-8 hover:border-accent-orange/50 transition-all duration-300"
               >
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-accent-orange transition-colors">
+                <h3 className="text-2xl font-bold text-navy-900 dark:text-white mb-3 group-hover:text-accent-orange transition-colors">
                   {value.name}
                 </h3>
-                <p className="text-white/60 leading-relaxed">
+                <p className="text-gray-600 dark:text-white/60 leading-relaxed">
                   {value.description}
                 </p>
               </motion.div>
@@ -184,7 +184,7 @@ export default function Design1() {
       </section>
 
       {/* The Team - Magazine Style */}
-      <section className="py-24 px-6 bg-navy-900">
+      <section className="py-24 px-6 bg-white dark:bg-navy-900 transition-colors">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -196,7 +196,7 @@ export default function Design1() {
             <p className="text-accent-orange font-mono text-sm mb-4 tracking-wider">
               THE TEAM
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
+            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white">
               The Voices Behind the Change
             </h2>
           </motion.div>
@@ -220,9 +220,9 @@ export default function Design1() {
                   />
                   <div className="absolute inset-0 bg-navy-950/40 group-hover:bg-transparent transition-all duration-500" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
+                <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-1">{member.name}</h3>
                 <p className="text-accent-orange text-sm font-medium mb-2">{member.role}</p>
-                <p className="text-white/50 text-sm">{member.shortBio}</p>
+                <p className="text-gray-500 dark:text-white/50 text-sm">{member.shortBio}</p>
               </motion.div>
             ))}
           </div>
@@ -237,7 +237,7 @@ export default function Design1() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-white leading-tight mb-8"
+            className="text-3xl md:text-4xl font-bold text-navy-900 dark:text-white leading-tight mb-8"
           >
             &ldquo;We don&apos;t just talk.
             <br />
@@ -245,7 +245,7 @@ export default function Design1() {
             <br />
             We make governance make sense.&rdquo;
           </motion.blockquote>
-          <p className="text-white/50">— The Big Talk Promise</p>
+          <p className="text-gray-500 dark:text-white/50">— The Big Talk Promise</p>
         </div>
       </section>
 
@@ -280,7 +280,7 @@ export default function Design1() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-navy-950 border-t border-white/10 py-16 px-6">
+      <footer className="bg-white dark:bg-navy-950 border-t border-gray-200 dark:border-white/10 py-16 px-6 transition-colors">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-12">
             <div className="md:col-span-2">
@@ -292,18 +292,18 @@ export default function Design1() {
                   height={48}
                   className="rounded-full"
                 />
-                <span className="text-white font-bold text-xl">THE BIG TALK</span>
+                <span className="text-navy-900 dark:text-white font-bold text-xl">THE BIG TALK</span>
               </div>
-              <p className="text-white/50 max-w-sm">
+              <p className="text-gray-500 dark:text-white/50 max-w-sm">
                 Simplifying the talk. Sparking the change. Kenya&apos;s civic education platform.
               </p>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Quick Links</h4>
+              <h4 className="text-navy-900 dark:text-white font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2">
                 {["About", "Team", "Programs", "Impact", "Contact"].map((item) => (
                   <li key={item}>
-                    <button className="text-white/50 hover:text-white text-sm transition-colors">
+                    <button className="text-gray-500 dark:text-white/50 hover:text-navy-900 dark:hover:text-white text-sm transition-colors">
                       {item}
                     </button>
                   </li>
@@ -311,11 +311,11 @@ export default function Design1() {
               </ul>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Follow Us</h4>
+              <h4 className="text-navy-900 dark:text-white font-semibold mb-4">Follow Us</h4>
               <ul className="space-y-2">
                 {["TikTok", "Instagram", "X (Twitter)", "Facebook"].map((item) => (
                   <li key={item}>
-                    <button className="text-white/50 hover:text-accent-orange text-sm transition-colors">
+                    <button className="text-gray-500 dark:text-white/50 hover:text-accent-orange text-sm transition-colors">
                       {item}
                     </button>
                   </li>
@@ -323,7 +323,7 @@ export default function Design1() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-white/10 mt-12 pt-8 text-center text-white/40 text-sm">
+          <div className="border-t border-gray-200 dark:border-white/10 mt-12 pt-8 text-center text-gray-400 dark:text-white/40 text-sm">
             <p>© 2024 The Big Talk. Making governance accessible for all Kenyans.</p>
           </div>
         </div>

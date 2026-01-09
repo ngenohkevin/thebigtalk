@@ -11,7 +11,7 @@ export default function Design5() {
   const [activeProgram, setActiveProgram] = useState(0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-navy-950 transition-colors duration-300">
       {/* Top Bar */}
       <div className="bg-navy-900 text-white text-xs py-2 px-6">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -25,7 +25,7 @@ export default function Design5() {
       </div>
 
       {/* Main Navigation */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <nav className="bg-white dark:bg-navy-900 border-b border-gray-200 dark:border-white/10 sticky top-0 z-50 transition-colors">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-4">
@@ -37,15 +37,15 @@ export default function Design5() {
                 className="rounded-full"
               />
               <div>
-                <span className="text-navy-900 font-bold text-lg block">THE BIG TALK</span>
-                <span className="text-gray-500 text-xs">Civic Education Platform</span>
+                <span className="text-navy-900 dark:text-white font-bold text-lg block">THE BIG TALK</span>
+                <span className="text-gray-500 dark:text-white/50 text-xs">Civic Education Platform</span>
               </div>
             </Link>
             <div className="hidden lg:flex items-center gap-1">
               {["About", "Programs", "Team", "Impact", "Resources", "Partners", "Contact"].map((item) => (
                 <button
                   key={item}
-                  className="text-gray-700 hover:text-navy-900 hover:bg-gray-100 text-sm px-4 py-2 transition-colors rounded"
+                  className="text-gray-700 dark:text-white/70 hover:text-navy-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/10 text-sm px-4 py-2 transition-colors rounded"
                 >
                   {item}
                 </button>
@@ -55,7 +55,7 @@ export default function Design5() {
               <ThemeToggle className="text-navy-900 dark:text-white" />
               <Link
                 href="/"
-                className="text-navy-600 text-sm font-medium hover:underline"
+                className="text-navy-600 dark:text-accent-cyan text-sm font-medium hover:underline"
               >
                 ← Back to Designs
               </Link>
@@ -65,7 +65,7 @@ export default function Design5() {
       </nav>
 
       {/* Hero - Institutional */}
-      <section className="bg-white border-b border-gray-200">
+      <section className="bg-white dark:bg-navy-900 border-b border-gray-200 dark:border-white/10 transition-colors">
         <div className="max-w-7xl mx-auto px-6 py-16">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -74,31 +74,31 @@ export default function Design5() {
               transition={{ duration: 0.6 }}
             >
               <div className="flex items-center gap-2 mb-6">
-                <span className="bg-navy-100 text-navy-700 text-xs font-semibold px-3 py-1 rounded">
+                <span className="bg-navy-100 dark:bg-navy-700 text-navy-700 dark:text-white text-xs font-semibold px-3 py-1 rounded">
                   EST. 2023
                 </span>
-                <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded">
+                <span className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-xs font-semibold px-3 py-1 rounded">
                   VERIFIED ORGANIZATION
                 </span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl font-bold text-navy-900 leading-tight mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white leading-tight mb-6">
                 Kenya&apos;s Premier Civic
                 <br />
                 Education Platform
               </h1>
 
-              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+              <p className="text-gray-600 dark:text-white/70 text-lg leading-relaxed mb-8">
                 Making governance accessible, transparent, and meaningful for all
                 Kenyans. We break down bills, policies, and political debates into
                 clear, factual conversations.
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <button className="bg-navy-900 text-white px-6 py-3 font-medium hover:bg-navy-800 transition-colors">
+                <button className="bg-navy-900 dark:bg-white text-white dark:text-navy-900 px-6 py-3 font-medium hover:bg-navy-800 dark:hover:bg-gray-100 transition-colors">
                   View Our Programs
                 </button>
-                <button className="border border-gray-300 text-gray-700 px-6 py-3 font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
+                <button className="border border-gray-300 dark:border-white/30 text-gray-700 dark:text-white px-6 py-3 font-medium hover:bg-gray-50 dark:hover:bg-white/10 transition-colors flex items-center gap-2">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
@@ -146,14 +146,14 @@ export default function Design5() {
         </div>
 
         {/* Recognition Bar */}
-        <div className="bg-gray-100 py-6">
+        <div className="bg-gray-100 dark:bg-navy-800 py-6 transition-colors">
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-wrap items-center justify-center gap-8">
-              <span className="text-gray-500 text-sm">Recognized by:</span>
+              <span className="text-gray-500 dark:text-white/50 text-sm">Recognized by:</span>
               {["UNESCO", "Office of Attorney General", "Heshimika Awards"].map((org) => (
                 <span
                   key={org}
-                  className="bg-white px-4 py-2 rounded border border-gray-200 text-gray-700 text-sm font-medium"
+                  className="bg-white dark:bg-navy-700 px-4 py-2 rounded border border-gray-200 dark:border-white/10 text-gray-700 dark:text-white text-sm font-medium"
                 >
                   {org}
                 </span>
@@ -164,7 +164,7 @@ export default function Design5() {
       </section>
 
       {/* About Summary */}
-      <section className="py-16 px-6">
+      <section className="py-16 px-6 bg-gray-50 dark:bg-navy-950 transition-colors">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
@@ -174,20 +174,20 @@ export default function Design5() {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <h2 className="text-2xl font-bold text-navy-900 mb-6">About The Big Talk</h2>
-                <div className="prose prose-gray max-w-none">
-                  <p className="text-gray-600 leading-relaxed mb-4">
+                <h2 className="text-2xl font-bold text-navy-900 dark:text-white mb-6">About The Big Talk</h2>
+                <div className="prose prose-gray dark:prose-invert max-w-none">
+                  <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
                     The Big Talk is a civic education platform committed to making governance
                     simple, accessible, and empowering for every Kenyan. We believe that
                     understanding how our country works is not a privilege for experts or
                     leaders alone, but a right for wananchi wote.
                   </p>
-                  <p className="text-gray-600 leading-relaxed mb-4">
+                  <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
                     Through digital platforms, in-person engagements, and collaborations
                     with civil society and governance institutions, we consistently create
                     space for informed and meaningful citizen engagement.
                   </p>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 dark:text-white/70 leading-relaxed">
                     At The Big Talk, we stand for truth over noise, knowledge over fear,
                     and action over apathy.
                   </p>
@@ -195,37 +195,37 @@ export default function Design5() {
               </motion.div>
             </div>
 
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">
+            <div className="bg-white dark:bg-navy-900 rounded-lg border border-gray-200 dark:border-white/10 p-6 transition-colors">
+              <h3 className="text-sm font-bold text-gray-500 dark:text-white/50 uppercase tracking-wider mb-4">
                 Key Facts
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-navy-600 rounded-full mt-2" />
+                  <div className="w-2 h-2 bg-navy-600 dark:bg-accent-cyan rounded-full mt-2" />
                   <div>
-                    <p className="text-navy-900 font-medium">Founded</p>
-                    <p className="text-gray-500 text-sm">2023, Nairobi</p>
+                    <p className="text-navy-900 dark:text-white font-medium">Founded</p>
+                    <p className="text-gray-500 dark:text-white/50 text-sm">2023, Nairobi</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-navy-600 rounded-full mt-2" />
+                  <div className="w-2 h-2 bg-navy-600 dark:bg-accent-cyan rounded-full mt-2" />
                   <div>
-                    <p className="text-navy-900 font-medium">Focus Areas</p>
-                    <p className="text-gray-500 text-sm">Civic Education, Policy Literacy, Youth Engagement</p>
+                    <p className="text-navy-900 dark:text-white font-medium">Focus Areas</p>
+                    <p className="text-gray-500 dark:text-white/50 text-sm">Civic Education, Policy Literacy, Youth Engagement</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-navy-600 rounded-full mt-2" />
+                  <div className="w-2 h-2 bg-navy-600 dark:bg-accent-cyan rounded-full mt-2" />
                   <div>
-                    <p className="text-navy-900 font-medium">Team Size</p>
-                    <p className="text-gray-500 text-sm">5 Core Members</p>
+                    <p className="text-navy-900 dark:text-white font-medium">Team Size</p>
+                    <p className="text-gray-500 dark:text-white/50 text-sm">5 Core Members</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-navy-600 rounded-full mt-2" />
+                  <div className="w-2 h-2 bg-navy-600 dark:bg-accent-cyan rounded-full mt-2" />
                   <div>
-                    <p className="text-navy-900 font-medium">Reach</p>
-                    <p className="text-gray-500 text-sm">500,000+ Citizens Engaged</p>
+                    <p className="text-navy-900 dark:text-white font-medium">Reach</p>
+                    <p className="text-gray-500 dark:text-white/50 text-sm">500,000+ Citizens Engaged</p>
                   </div>
                 </li>
               </ul>
@@ -235,7 +235,7 @@ export default function Design5() {
       </section>
 
       {/* Programs - Tab Based */}
-      <section className="py-16 px-6 bg-white">
+      <section className="py-16 px-6 bg-white dark:bg-navy-900 transition-colors">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -244,11 +244,11 @@ export default function Design5() {
             viewport={{ once: true }}
             className="mb-12"
           >
-            <h2 className="text-2xl font-bold text-navy-900 mb-2">Our Programs</h2>
-            <p className="text-gray-600">Content pillars driving civic engagement</p>
+            <h2 className="text-2xl font-bold text-navy-900 dark:text-white mb-2">Our Programs</h2>
+            <p className="text-gray-600 dark:text-white/60">Content pillars driving civic engagement</p>
           </motion.div>
 
-          <div className="border-b border-gray-200 mb-8">
+          <div className="border-b border-gray-200 dark:border-white/10 mb-8">
             <div className="flex gap-0">
               {contentPillars.map((pillar, index) => (
                 <button
@@ -256,8 +256,8 @@ export default function Design5() {
                   onClick={() => setActiveProgram(index)}
                   className={`px-6 py-4 text-sm font-medium border-b-2 transition-all ${
                     activeProgram === index
-                      ? "border-navy-600 text-navy-900"
-                      : "border-transparent text-gray-500 hover:text-gray-700"
+                      ? "border-navy-600 dark:border-accent-cyan text-navy-900 dark:text-white"
+                      : "border-transparent text-gray-500 dark:text-white/50 hover:text-gray-700 dark:hover:text-white/70"
                   }`}
                 >
                   {pillar.name}
@@ -271,12 +271,12 @@ export default function Design5() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="bg-gray-50 rounded-lg p-8"
+            className="bg-gray-50 dark:bg-navy-800 rounded-lg p-8 transition-colors"
           >
-            <h3 className="text-xl font-bold text-navy-900 mb-4">
+            <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-4">
               {contentPillars[activeProgram].name}
             </h3>
-            <p className="text-gray-600 leading-relaxed max-w-3xl">
+            <p className="text-gray-600 dark:text-white/70 leading-relaxed max-w-3xl">
               {contentPillars[activeProgram].description}
             </p>
           </motion.div>
@@ -284,7 +284,7 @@ export default function Design5() {
       </section>
 
       {/* Leadership Team - Formal Grid */}
-      <section className="py-16 px-6">
+      <section className="py-16 px-6 bg-gray-50 dark:bg-navy-950 transition-colors">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -293,8 +293,8 @@ export default function Design5() {
             viewport={{ once: true }}
             className="mb-12"
           >
-            <h2 className="text-2xl font-bold text-navy-900 mb-2">Leadership Team</h2>
-            <p className="text-gray-600">Meet the people driving our mission</p>
+            <h2 className="text-2xl font-bold text-navy-900 dark:text-white mb-2">Leadership Team</h2>
+            <p className="text-gray-600 dark:text-white/60">Meet the people driving our mission</p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -305,7 +305,7 @@ export default function Design5() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-lg border border-gray-200 overflow-hidden"
+                className="bg-white dark:bg-navy-900 rounded-lg border border-gray-200 dark:border-white/10 overflow-hidden transition-colors"
               >
                 <div className="flex gap-4 p-6">
                   <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
@@ -317,9 +317,9 @@ export default function Design5() {
                     />
                   </div>
                   <div>
-                    <h3 className="font-bold text-navy-900">{member.name}</h3>
-                    <p className="text-navy-600 text-sm font-medium mb-2">{member.role}</p>
-                    <p className="text-gray-500 text-xs leading-relaxed">{member.shortBio}</p>
+                    <h3 className="font-bold text-navy-900 dark:text-white">{member.name}</h3>
+                    <p className="text-navy-600 dark:text-accent-cyan text-sm font-medium mb-2">{member.role}</p>
+                    <p className="text-gray-500 dark:text-white/50 text-xs leading-relaxed">{member.shortBio}</p>
                   </div>
                 </div>
               </motion.div>
@@ -329,7 +329,7 @@ export default function Design5() {
       </section>
 
       {/* Core Values - Simple List */}
-      <section className="py-16 px-6 bg-white">
+      <section className="py-16 px-6 bg-white dark:bg-navy-900 transition-colors">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -338,8 +338,8 @@ export default function Design5() {
             viewport={{ once: true }}
             className="mb-12"
           >
-            <h2 className="text-2xl font-bold text-navy-900 mb-2">Core Values</h2>
-            <p className="text-gray-600">The principles that guide our work</p>
+            <h2 className="text-2xl font-bold text-navy-900 dark:text-white mb-2">Core Values</h2>
+            <p className="text-gray-600 dark:text-white/60">The principles that guide our work</p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -352,11 +352,11 @@ export default function Design5() {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <div className="w-12 h-12 bg-navy-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <div className="w-4 h-4 bg-navy-600 rounded" />
+                <div className="w-12 h-12 bg-navy-100 dark:bg-navy-700 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <div className="w-4 h-4 bg-navy-600 dark:bg-accent-cyan rounded" />
                 </div>
-                <h3 className="font-bold text-navy-900 mb-2">{value.name}</h3>
-                <p className="text-gray-500 text-sm">{value.description}</p>
+                <h3 className="font-bold text-navy-900 dark:text-white mb-2">{value.name}</h3>
+                <p className="text-gray-500 dark:text-white/50 text-sm">{value.description}</p>
               </motion.div>
             ))}
           </div>

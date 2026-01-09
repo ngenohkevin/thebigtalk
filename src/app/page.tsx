@@ -70,9 +70,9 @@ const designs = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-navy-950">
+    <main className="min-h-screen bg-gray-50 dark:bg-navy-950 transition-colors duration-300">
       {/* Header */}
-      <header className="border-b border-white/10">
+      <header className="border-b border-gray-200 dark:border-white/10 bg-white dark:bg-navy-950 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Image
@@ -83,11 +83,11 @@ export default function Home() {
               className="rounded-full"
             />
             <div>
-              <h1 className="text-white font-bold text-xl">The Big Talk</h1>
-              <p className="text-white/60 text-sm">Design Concepts</p>
+              <h1 className="text-gray-900 dark:text-white font-bold text-xl">The Big Talk</h1>
+              <p className="text-gray-500 dark:text-white/60 text-sm">Design Concepts</p>
             </div>
           </div>
-          <ThemeToggle className="text-white" />
+          <ThemeToggle className="text-gray-700 dark:text-white" />
         </div>
       </header>
 
@@ -99,15 +99,15 @@ export default function Home() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
+          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             6 Design Concepts
             <span className="block text-accent-cyan">for The Big Talk</span>
           </h2>
-          <p className="text-xl text-white/70 leading-relaxed mb-8">
+          <p className="text-xl text-gray-600 dark:text-white/70 leading-relaxed mb-8">
             Each design captures a different personality for the platform.
             Click on any concept to see the full homepage design in action.
           </p>
-          <p className="text-white/50">
+          <p className="text-gray-500 dark:text-white/50">
             Simplifying the talk. Sparking the change.
           </p>
         </motion.div>
@@ -124,7 +124,7 @@ export default function Home() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Link href={design.href} className="block group">
-                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:border-white/20 transition-all duration-300 hover:scale-[1.02]">
+                <div className="relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm hover:border-gray-300 dark:hover:border-white/20 shadow-sm dark:shadow-none transition-all duration-300 hover:scale-[1.02]">
                   {/* Preview gradient */}
                   <div className={`h-40 bg-gradient-to-br ${design.color} relative`}>
                     <div className={`absolute top-4 left-4 ${design.accent} text-white text-xs font-bold px-3 py-1 rounded-full`}>
@@ -138,18 +138,18 @@ export default function Home() {
                   {/* Content */}
                   <div className="p-6">
                     <div className="flex items-baseline gap-3 mb-2">
-                      <h3 className="text-xl font-bold text-white group-hover:text-accent-cyan transition-colors">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-accent-cyan transition-colors">
                         {design.name}
                       </h3>
-                      <span className="text-white/50 text-sm">
+                      <span className="text-gray-500 dark:text-white/50 text-sm">
                         {design.subtitle}
                       </span>
                     </div>
-                    <p className="text-white/60 text-sm mb-4 leading-relaxed">
+                    <p className="text-gray-600 dark:text-white/60 text-sm mb-4 leading-relaxed">
                       {design.description}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-white/40">
+                      <span className="text-xs text-gray-400 dark:text-white/40">
                         Best for: {design.audience}
                       </span>
                       <span className="text-accent-cyan text-sm font-medium group-hover:translate-x-1 transition-transform">
@@ -165,8 +165,8 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 py-8">
-        <div className="max-w-7xl mx-auto px-6 text-center text-white/40 text-sm">
+      <footer className="border-t border-gray-200 dark:border-white/10 py-8 bg-white dark:bg-navy-950 transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-6 text-center text-gray-500 dark:text-white/40 text-sm">
           <p>Design concepts for The Big Talk NGO | Kenya&apos;s Civic Education Platform</p>
         </div>
       </footer>

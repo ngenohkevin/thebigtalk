@@ -37,7 +37,7 @@ const newsItems = [
 
 export default function Design6() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-navy-950 transition-colors duration-300">
       {/* Top utility bar */}
       <div className="bg-[#009EDB] text-white text-xs">
         <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
@@ -54,7 +54,7 @@ export default function Design6() {
       </div>
 
       {/* Main Navigation */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+      <nav className="bg-white dark:bg-navy-900 border-b border-gray-200 dark:border-white/10 sticky top-0 z-50 shadow-sm transition-colors">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-3">
@@ -67,14 +67,14 @@ export default function Design6() {
               />
               <div className="hidden sm:block">
                 <span className="text-[#009EDB] font-bold text-lg block leading-tight">THE BIG TALK</span>
-                <span className="text-gray-500 text-xs">Kenya Civic Education Platform</span>
+                <span className="text-gray-500 dark:text-white/50 text-xs">Kenya Civic Education Platform</span>
               </div>
             </Link>
             <div className="hidden lg:flex items-center gap-1">
               {["About", "What We Do", "Where We Work", "Get Involved", "Resources", "News"].map((item) => (
                 <button
                   key={item}
-                  className="text-gray-700 hover:text-[#009EDB] hover:bg-blue-50 text-sm px-4 py-2 transition-colors"
+                  className="text-gray-700 dark:text-white/70 hover:text-[#009EDB] hover:bg-blue-50 dark:hover:bg-white/10 text-sm px-4 py-2 transition-colors"
                 >
                   {item}
                 </button>
@@ -175,7 +175,7 @@ export default function Design6() {
       </section>
 
       {/* Our Goals - SDG Style */}
-      <section className="py-16 px-6 bg-gray-50">
+      <section className="py-16 px-6 bg-gray-50 dark:bg-navy-900 transition-colors">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -184,8 +184,8 @@ export default function Design6() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Strategic Pillars</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Our Strategic Pillars</h2>
+            <p className="text-gray-600 dark:text-white/60 max-w-2xl mx-auto">
               Five key areas guiding our mission to create an informed and engaged citizenry in Kenya.
             </p>
           </motion.div>
@@ -209,7 +209,7 @@ export default function Design6() {
       </section>
 
       {/* About Section */}
-      <section className="py-16 px-6">
+      <section className="py-16 px-6 bg-white dark:bg-navy-950 transition-colors">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -221,10 +221,10 @@ export default function Design6() {
               <p className="text-[#009EDB] text-sm font-bold tracking-wider uppercase mb-4">
                 About Us
               </p>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
                 Making Governance Accessible for Every Kenyan
               </h2>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
+              <div className="space-y-4 text-gray-600 dark:text-white/70 leading-relaxed">
                 <p>
                   The Big Talk is a civic education platform committed to making governance
                   simple, accessible, and empowering for every Kenyan.
@@ -234,7 +234,7 @@ export default function Design6() {
                   civil society and governance institutions, we consistently create space for
                   informed and meaningful citizen engagement.
                 </p>
-                <p className="font-medium text-gray-900">
+                <p className="font-medium text-gray-900 dark:text-white">
                   At The Big Talk, we stand for truth over noise, knowledge over fear,
                   and action over apathy.
                 </p>
@@ -277,7 +277,7 @@ export default function Design6() {
       </section>
 
       {/* Core Values */}
-      <section className="py-16 px-6 bg-[#F7F9FC]">
+      <section className="py-16 px-6 bg-[#F7F9FC] dark:bg-navy-900 transition-colors">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -286,8 +286,8 @@ export default function Design6() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Core Values</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Our Core Values</h2>
+            <p className="text-gray-600 dark:text-white/60 max-w-2xl mx-auto">
               The principles that guide every aspect of our work.
             </p>
           </motion.div>
@@ -300,10 +300,10 @@ export default function Design6() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white p-6 rounded border-l-4 border-[#009EDB] hover:shadow-lg transition-shadow"
+                className="bg-white dark:bg-navy-800 p-6 rounded border-l-4 border-[#009EDB] hover:shadow-lg transition-shadow"
               >
-                <h3 className="font-bold text-gray-900 mb-2">{value.name}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{value.description}</p>
+                <h3 className="font-bold text-gray-900 dark:text-white mb-2">{value.name}</h3>
+                <p className="text-gray-600 dark:text-white/60 text-sm leading-relaxed">{value.description}</p>
               </motion.div>
             ))}
           </div>
@@ -311,7 +311,7 @@ export default function Design6() {
       </section>
 
       {/* News & Updates */}
-      <section className="py-16 px-6">
+      <section className="py-16 px-6 bg-white dark:bg-navy-950 transition-colors">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -321,8 +321,8 @@ export default function Design6() {
             className="flex items-center justify-between mb-12"
           >
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">News & Updates</h2>
-              <p className="text-gray-600">Latest from The Big Talk</p>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">News & Updates</h2>
+              <p className="text-gray-600 dark:text-white/60">Latest from The Big Talk</p>
             </div>
             <button className="text-[#009EDB] font-medium hover:underline">
               View All News →
@@ -339,7 +339,7 @@ export default function Design6() {
                 viewport={{ once: true }}
                 className="group cursor-pointer"
               >
-                <div className="aspect-video bg-gray-200 rounded mb-4 overflow-hidden">
+                <div className="aspect-video bg-gray-200 dark:bg-navy-800 rounded mb-4 overflow-hidden">
                   <Image
                     src={teamMembers[index % teamMembers.length].image}
                     alt={item.title}
@@ -348,16 +348,16 @@ export default function Design6() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <div className="flex items-center gap-3 text-xs text-gray-500 mb-2">
+                <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-white/50 mb-2">
                   <span>{item.date}</span>
                   <span className="bg-[#009EDB]/10 text-[#009EDB] px-2 py-0.5 font-medium">
                     {item.category}
                   </span>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2 group-hover:text-[#009EDB] transition-colors">
+                <h3 className="font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#009EDB] transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-gray-600 text-sm">{item.excerpt}</p>
+                <p className="text-gray-600 dark:text-white/60 text-sm">{item.excerpt}</p>
               </motion.article>
             ))}
           </div>
@@ -365,16 +365,16 @@ export default function Design6() {
       </section>
 
       {/* Recognition */}
-      <section className="py-12 px-6 bg-gray-100 border-y border-gray-200">
+      <section className="py-12 px-6 bg-gray-100 dark:bg-navy-900 border-y border-gray-200 dark:border-white/10 transition-colors">
         <div className="max-w-7xl mx-auto">
-          <p className="text-center text-gray-500 text-sm mb-8 uppercase tracking-wider">
+          <p className="text-center text-gray-500 dark:text-white/50 text-sm mb-8 uppercase tracking-wider">
             Recognized & Supported By
           </p>
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
             {["UNESCO", "Office of Attorney General", "Heshimika Awards", "Civil Society Partners"].map((org) => (
               <span
                 key={org}
-                className="text-gray-400 text-lg font-semibold hover:text-gray-600 transition-colors"
+                className="text-gray-400 dark:text-white/40 text-lg font-semibold hover:text-gray-600 dark:hover:text-white/60 transition-colors"
               >
                 {org}
               </span>

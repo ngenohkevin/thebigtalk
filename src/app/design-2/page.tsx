@@ -11,9 +11,9 @@ export default function Design2() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-navy-950 transition-colors duration-300">
       {/* Navigation */}
-      <nav className="border-b border-gray-200">
+      <nav className="border-b border-gray-200 dark:border-white/10 bg-white dark:bg-navy-950 transition-colors">
         <div className="max-w-6xl mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3">
@@ -24,13 +24,13 @@ export default function Design2() {
                 height={36}
                 className="rounded-full"
               />
-              <span className="text-navy-900 font-medium">The Big Talk</span>
+              <span className="text-navy-900 dark:text-white font-medium">The Big Talk</span>
             </Link>
             <div className="hidden md:flex items-center gap-10">
               {["About", "Team", "Programs", "Contact"].map((item) => (
                 <button
                   key={item}
-                  className="text-gray-600 hover:text-navy-900 text-sm transition-colors relative group"
+                  className="text-gray-600 dark:text-white/70 hover:text-navy-900 dark:hover:text-white text-sm transition-colors relative group"
                 >
                   {item}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-cyan group-hover:w-full transition-all" />
@@ -58,16 +58,16 @@ export default function Design2() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-navy-900 leading-tight mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold text-navy-900 dark:text-white leading-tight mb-6">
               Simplifying the talk.
               <br />
               Sparking the change.
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed mb-10 max-w-xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-white/70 leading-relaxed mb-10 max-w-xl mx-auto">
               A civic education platform making governance accessible
-              for <span className="text-navy-900 font-medium">wananchi wote</span>.
+              for <span className="text-navy-900 dark:text-white font-medium">wananchi wote</span>.
             </p>
-            <button className="bg-navy-900 text-white px-8 py-4 text-sm font-medium hover:bg-navy-800 transition-colors">
+            <button className="bg-navy-900 dark:bg-white text-white dark:text-navy-900 px-8 py-4 text-sm font-medium hover:bg-navy-800 dark:hover:bg-gray-100 transition-colors">
               Learn About Our Mission
             </button>
           </motion.div>
@@ -75,7 +75,7 @@ export default function Design2() {
       </section>
 
       {/* Stats - Inline */}
-      <section className="border-y border-gray-200 py-10">
+      <section className="border-y border-gray-200 dark:border-white/10 py-10 transition-colors">
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex flex-wrap justify-center gap-12 md:gap-20">
             {stats.map((stat, index) => (
@@ -87,10 +87,10 @@ export default function Design2() {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <p className="text-2xl md:text-3xl font-bold text-navy-900 mb-1">
+                <p className="text-2xl md:text-3xl font-bold text-navy-900 dark:text-white mb-1">
                   {stat.value}
                 </p>
-                <p className="text-gray-500 text-sm">{stat.label}</p>
+                <p className="text-gray-500 dark:text-white/50 text-sm">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -120,7 +120,7 @@ export default function Design2() {
       </section>
 
       {/* Content Pillars - Tabs */}
-      <section className="py-24 px-6">
+      <section className="py-24 px-6 bg-white dark:bg-navy-950 transition-colors">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -129,10 +129,10 @@ export default function Design2() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <p className="text-gray-500 text-sm mb-4 tracking-wider uppercase">
+            <p className="text-gray-500 dark:text-white/50 text-sm mb-4 tracking-wider uppercase">
               What We Do
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-navy-900">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy-900 dark:text-white">
               Content Pillars
             </h2>
           </motion.div>
@@ -145,8 +145,8 @@ export default function Design2() {
                 onClick={() => setActiveTab(index)}
                 className={`px-6 py-3 text-sm font-medium transition-all ${
                   activeTab === index
-                    ? "bg-navy-900 text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? "bg-navy-900 dark:bg-white text-white dark:text-navy-900"
+                    : "bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-white/70 hover:bg-gray-200 dark:hover:bg-white/20"
                 }`}
               >
                 {pillar.name}
@@ -162,7 +162,7 @@ export default function Design2() {
             transition={{ duration: 0.3 }}
             className="text-center"
           >
-            <p className="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-white/70 leading-relaxed max-w-2xl mx-auto">
               {contentPillars[activeTab].description}
             </p>
           </motion.div>
@@ -170,7 +170,7 @@ export default function Design2() {
       </section>
 
       {/* Core Values - Simple Grid */}
-      <section className="py-24 px-6 bg-gray-50">
+      <section className="py-24 px-6 bg-gray-50 dark:bg-navy-900 transition-colors">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -179,10 +179,10 @@ export default function Design2() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <p className="text-gray-500 text-sm mb-4 tracking-wider uppercase">
+            <p className="text-gray-500 dark:text-white/50 text-sm mb-4 tracking-wider uppercase">
               Our Values
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-navy-900">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy-900 dark:text-white">
               What Guides Us
             </h2>
           </motion.div>
@@ -200,10 +200,10 @@ export default function Design2() {
                 <div className="w-12 h-12 bg-accent-cyan/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <div className="w-3 h-3 bg-accent-cyan rounded-full" />
                 </div>
-                <h3 className="text-lg font-semibold text-navy-900 mb-2">
+                <h3 className="text-lg font-semibold text-navy-900 dark:text-white mb-2">
                   {value.name}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-600 dark:text-white/60 text-sm leading-relaxed">
                   {value.description}
                 </p>
               </motion.div>
@@ -213,7 +213,7 @@ export default function Design2() {
       </section>
 
       {/* Team - Clean Grid */}
-      <section className="py-24 px-6">
+      <section className="py-24 px-6 bg-white dark:bg-navy-950 transition-colors">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -222,10 +222,10 @@ export default function Design2() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <p className="text-gray-500 text-sm mb-4 tracking-wider uppercase">
+            <p className="text-gray-500 dark:text-white/50 text-sm mb-4 tracking-wider uppercase">
               Our Team
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-navy-900">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy-900 dark:text-white">
               The People Behind the Platform
             </h2>
           </motion.div>
@@ -248,10 +248,10 @@ export default function Design2() {
                     className="object-cover"
                   />
                 </div>
-                <h3 className="font-semibold text-navy-900 text-sm">
+                <h3 className="font-semibold text-navy-900 dark:text-white text-sm">
                   {member.name}
                 </h3>
-                <p className="text-gray-500 text-xs">{member.role}</p>
+                <p className="text-gray-500 dark:text-white/50 text-xs">{member.role}</p>
               </motion.div>
             ))}
           </div>
@@ -298,7 +298,7 @@ export default function Design2() {
       </section>
 
       {/* Footer - Minimal */}
-      <footer className="border-t border-gray-200 py-10 px-6">
+      <footer className="border-t border-gray-200 dark:border-white/10 py-10 px-6 bg-white dark:bg-navy-950 transition-colors">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
@@ -309,22 +309,22 @@ export default function Design2() {
                 height={32}
                 className="rounded-full"
               />
-              <span className="text-navy-900 font-medium text-sm">The Big Talk</span>
+              <span className="text-navy-900 dark:text-white font-medium text-sm">The Big Talk</span>
             </div>
-            <div className="flex items-center gap-6 text-sm text-gray-500">
+            <div className="flex items-center gap-6 text-sm text-gray-500 dark:text-white/50">
               {["TikTok", "Instagram", "X", "Facebook"].map((item) => (
-                <button key={item} className="hover:text-navy-900 transition-colors">
+                <button key={item} className="hover:text-navy-900 dark:hover:text-white transition-colors">
                   {item}
                 </button>
               ))}
             </div>
-            <p className="text-gray-400 text-sm">© 2024 The Big Talk</p>
+            <p className="text-gray-400 dark:text-white/40 text-sm">© 2024 The Big Talk</p>
           </div>
         </div>
       </footer>
 
       {/* Design Label */}
-      <div className="fixed bottom-6 left-6 bg-navy-900 text-white px-4 py-2 text-sm font-medium rounded-full">
+      <div className="fixed bottom-6 left-6 bg-navy-900 dark:bg-white text-white dark:text-navy-900 px-4 py-2 text-sm font-medium rounded-full">
         Design 2: Clarity
       </div>
     </div>
