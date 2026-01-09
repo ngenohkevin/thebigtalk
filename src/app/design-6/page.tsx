@@ -251,7 +251,7 @@ export default function Design6() {
               viewport={{ once: true }}
               className="grid grid-cols-2 gap-4"
             >
-              {teamMembers.slice(0, 4).map((member, index) => (
+              {teamMembers.map((member, index) => (
                 <div
                   key={member.id}
                   className={`relative aspect-[4/5] rounded overflow-hidden ${
