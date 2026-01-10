@@ -110,7 +110,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-navy-950 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-navy-950 transition-colors duration-300 overflow-x-hidden">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/90 dark:bg-navy-950/90 backdrop-blur-xl border-b border-gray-200 dark:border-white/5 transition-colors">
         <div className="max-w-7xl mx-auto px-6 py-4">
@@ -377,15 +377,15 @@ export default function Home() {
 
       {/* Team Member Modal */}
       <Dialog open={!!selectedMember} onOpenChange={() => setSelectedMember(null)}>
-        <DialogContent className="sm:max-w-lg md:max-w-2xl lg:max-w-3xl bg-white dark:bg-navy-900 border-gray-200 dark:border-white/10">
+        <DialogContent className="sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-white dark:bg-navy-900 border-gray-200 dark:border-white/10">
           {selectedMember && (
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 pt-4">
-              <div className="relative w-36 h-36 sm:w-48 sm:h-64 md:w-64 md:h-80 mx-auto sm:mx-0 flex-shrink-0 rounded-lg overflow-hidden">
+              <div className="relative w-44 h-44 sm:w-56 sm:h-72 md:w-72 md:h-96 mx-auto sm:mx-0 flex-shrink-0 rounded-lg overflow-hidden">
                 <Image
                   src={selectedMember.image}
                   alt={selectedMember.name}
                   fill
-                  sizes="(max-width: 640px) 144px, (max-width: 768px) 192px, 256px"
+                  sizes="(max-width: 640px) 176px, (max-width: 768px) 224px, 288px"
                   className="object-cover"
                 />
               </div>
