@@ -33,22 +33,22 @@ import {
 function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const [displayValue, setDisplayValue] = useState(0);
+  const [displayValue, setDisplayValue] = useState(value); // Start with final value
   const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     if (isInView && !hasAnimated) {
       setHasAnimated(true);
+      setDisplayValue(0); // Reset to 0 for animation
       const duration = 2000;
       const startTime = Date.now();
-      const startValue = 0;
 
       const updateCounter = () => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
         // Ease out quad
         const easeProgress = 1 - (1 - progress) * (1 - progress);
-        const currentValue = Math.round(startValue + (value - startValue) * easeProgress);
+        const currentValue = Math.round(value * easeProgress);
         setDisplayValue(currentValue);
 
         if (progress < 1) {
@@ -59,17 +59,6 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
       requestAnimationFrame(updateCounter);
     }
   }, [isInView, value, hasAnimated]);
-
-  // Show final value as fallback if animation hasn't triggered after 1 second
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (displayValue === 0 && !hasAnimated) {
-        setHasAnimated(true);
-        setDisplayValue(value);
-      }
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, [value, displayValue, hasAnimated]);
 
   return (
     <span ref={ref}>
