@@ -802,9 +802,12 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 text-center md:text-left">
             <p className="text-white/40 text-sm">
-              © {new Date().getFullYear()} The Big Talk. Making governance accessible for all Kenyans.
+              © {new Date().getFullYear()} The Big Talk
+            </p>
+            <p className="text-white/40 text-xs md:text-sm">
+              Making governance accessible for all Kenyans
             </p>
             <p className="text-white/40 text-sm">
               Nairobi, Kenya
