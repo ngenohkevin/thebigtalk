@@ -25,6 +25,8 @@ import {
   Award,
   Megaphone,
   HandshakeIcon,
+  Menu,
+  X,
 } from "lucide-react";
 
 // Animated counter component
@@ -71,7 +73,24 @@ const iconMap = {
 export default function Home() {
   const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null);
   const [activeFilter, setActiveFilter] = useState("All");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const filters = ["All", "Civic Ed", "Explainers", "Trends"];
+
+  const navItems = [
+    { name: "About", href: "#about" },
+    { name: "Team", href: "#team" },
+    { name: "Impact", href: "#impact" },
+    { name: "Videos", href: "#videos" },
+    { name: "Contact", href: "#contact" },
+  ];
+
+  const scrollToSection = (href: string) => {
+    setMobileMenuOpen(false);
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-navy-950 transition-colors duration-300">
@@ -93,12 +112,13 @@ export default function Home() {
               </div>
             </Link>
             <div className="hidden md:flex items-center gap-8">
-              {["About", "Team", "Impact", "Videos", "Contact"].map((item) => (
+              {navItems.map((item) => (
                 <button
-                  key={item}
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
                   className="text-gray-600 dark:text-white/70 hover:text-navy-900 dark:hover:text-white text-sm font-medium transition-colors"
                 >
-                  {item}
+                  {item.name}
                 </button>
               ))}
             </div>
@@ -117,13 +137,62 @@ export default function Home() {
                 ))}
               </div>
               <ThemeToggle className="text-navy-900 dark:text-white" />
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-6 h-6 text-navy-900 dark:text-white" />
+                ) : (
+                  <Menu className="w-6 h-6 text-navy-900 dark:text-white" />
+                )}
+              </button>
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden border-t border-gray-200 dark:border-white/5 bg-white dark:bg-navy-950"
+          >
+            <div className="px-6 py-4 space-y-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className="block w-full text-left px-4 py-3 text-gray-600 dark:text-white/70 hover:text-navy-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 rounded-lg text-sm font-medium transition-colors"
+                >
+                  {item.name}
+                </button>
+              ))}
+              <div className="pt-4 border-t border-gray-200 dark:border-white/10 mt-4">
+                <div className="flex items-center gap-3 px-4">
+                  {["TikTok", "IG", "X"].map((item) => (
+                    <a
+                      key={item}
+                      href={item === "TikTok" ? socialLinks.tiktok : item === "IG" ? socialLinks.instagram : socialLinks.twitter}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 dark:text-white/50 hover:text-accent-coral text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 dark:border-white/10 hover:border-accent-coral/50 transition-all"
+                    >
+                      {item}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </nav>
 
       {/* Hero Section - Design 3 Style with Explainer Video */}
-      <section className="py-8 px-6">
+      <section id="about" className="py-8 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-3 gap-4">
             {/* Main Hero Card */}
@@ -228,7 +297,7 @@ export default function Home() {
       </section>
 
       {/* Team Section - Design 1 Style with Grayscale/Color and Modal */}
-      <section className="py-24 px-6 bg-white dark:bg-navy-900 transition-colors">
+      <section id="team" className="py-24 px-6 bg-white dark:bg-navy-900 transition-colors">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -316,7 +385,7 @@ export default function Home() {
       </Dialog>
 
       {/* Impact Numbers with Animated Counters */}
-      <section className="py-20 px-6">
+      <section id="impact" className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
@@ -551,7 +620,7 @@ export default function Home() {
       </section>
 
       {/* Content Pillars Section */}
-      <section className="py-20 px-6 bg-white dark:bg-navy-900 transition-colors">
+      <section id="videos" className="py-20 px-6 bg-white dark:bg-navy-900 transition-colors">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -621,7 +690,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-navy-950 border-t border-white/10 py-16 px-6">
+      <footer id="contact" className="bg-navy-950 border-t border-white/10 py-16 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div className="md:col-span-2">
@@ -679,10 +748,19 @@ export default function Home() {
             <div>
               <h4 className="text-white font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2">
-                {["About Us", "Our Team", "Impact", "Videos", "Contact"].map((item) => (
-                  <li key={item}>
-                    <button className="text-white/50 hover:text-accent-coral text-sm transition-colors">
-                      {item}
+                {[
+                  { name: "About Us", href: "#about" },
+                  { name: "Our Team", href: "#team" },
+                  { name: "Impact", href: "#impact" },
+                  { name: "Videos", href: "#videos" },
+                  { name: "Contact", href: "#contact" },
+                ].map((item) => (
+                  <li key={item.name}>
+                    <button
+                      onClick={() => scrollToSection(item.href)}
+                      className="text-white/50 hover:text-accent-coral text-sm transition-colors"
+                    >
+                      {item.name}
                     </button>
                   </li>
                 ))}
