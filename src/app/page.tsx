@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { teamMembers, stats, coreValues, contentPillars, socialLinks } from "@/lib/data";
 import { useState, useRef, useEffect } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -32,37 +32,42 @@ import {
 // Animated counter component
 function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (latest) => Math.round(latest));
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
   const [displayValue, setDisplayValue] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     if (isInView && !hasAnimated) {
       setHasAnimated(true);
-      const controls = animate(count, value, {
-        duration: 2,
-        ease: "easeOut",
-      });
-      return controls.stop;
+      const duration = 2000;
+      const startTime = Date.now();
+      const startValue = 0;
+
+      const updateCounter = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out quad
+        const easeProgress = 1 - (1 - progress) * (1 - progress);
+        const currentValue = Math.round(startValue + (value - startValue) * easeProgress);
+        setDisplayValue(currentValue);
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        }
+      };
+
+      requestAnimationFrame(updateCounter);
     }
-  }, [isInView, value, count, hasAnimated]);
+  }, [isInView, value, hasAnimated]);
 
-  useEffect(() => {
-    const unsubscribe = rounded.on("change", (latest) => {
-      setDisplayValue(latest);
-    });
-    return unsubscribe;
-  }, [rounded]);
-
-  // Show final value as fallback if animation hasn't triggered after mount
+  // Show final value as fallback if animation hasn't triggered after 1 second
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (displayValue === 0 && !hasAnimated) {
+        setHasAnimated(true);
         setDisplayValue(value);
       }
-    }, 500);
+    }, 1000);
     return () => clearTimeout(timeout);
   }, [value, displayValue, hasAnimated]);
 
