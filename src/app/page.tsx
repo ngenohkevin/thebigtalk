@@ -404,50 +404,50 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="text-center px-2"
               >
-                <p className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-2">
+                <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-3">
                   <AnimatedCounter value={500000} suffix="+" />
                 </p>
-                <p className="text-gray-500 dark:text-white/50 text-sm">Citizen signatures mobilized</p>
+                <p className="text-gray-500 dark:text-white/50 text-xs sm:text-sm">Citizen signatures mobilized</p>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.1 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="text-center px-2"
               >
-                <p className="text-4xl md:text-5xl font-bold text-accent-coral mb-2">UNESCO</p>
-                <p className="text-gray-500 dark:text-white/50 text-sm">Youth Hackathon 2025</p>
+                <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-accent-coral mb-3">UNESCO</p>
+                <p className="text-gray-500 dark:text-white/50 text-xs sm:text-sm">Youth Hackathon 2025</p>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="text-center px-2"
               >
-                <p className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-2">
+                <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-3">
                   <AnimatedCounter value={50} suffix="+" />
                 </p>
-                <p className="text-gray-500 dark:text-white/50 text-sm">Explainer videos produced</p>
+                <p className="text-gray-500 dark:text-white/50 text-xs sm:text-sm">Explainer videos produced</p>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.3 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="text-center px-2"
               >
-                <p className="text-4xl md:text-5xl font-bold text-accent-cyan mb-2">Heshimika</p>
-                <p className="text-gray-500 dark:text-white/50 text-sm">Awards for civic leadership</p>
+                <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-accent-cyan mb-3">Heshimika</p>
+                <p className="text-gray-500 dark:text-white/50 text-xs sm:text-sm">Awards for civic leadership</p>
               </motion.div>
             </div>
           </motion.div>
