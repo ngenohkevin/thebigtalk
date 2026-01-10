@@ -116,6 +116,7 @@ export default function Home() {
                 alt="The Big Talk"
                 width={40}
                 height={40}
+                priority
                 className="rounded-full ring-2 ring-accent-coral/50"
               />
               <div>
