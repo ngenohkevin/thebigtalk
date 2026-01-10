@@ -324,7 +324,7 @@ export default function Design1() {
             </div>
           </div>
           <div className="border-t border-gray-200 dark:border-white/10 mt-12 pt-8 text-center text-gray-400 dark:text-white/40 text-sm">
-            <p>© 2024 The Big Talk. Making governance accessible for all Kenyans.</p>
+            <p>© {new Date().getFullYear()} The Big Talk. Making governance accessible for all Kenyans.</p>
           </div>
         </div>
       </footer>

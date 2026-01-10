@@ -456,7 +456,7 @@ export default function Design5() {
           </div>
 
           <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-500 text-sm">
-            <p>© 2024 The Big Talk. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} The Big Talk. All rights reserved.</p>
             <div className="flex gap-6">
               <button className="hover:text-white transition-colors">Privacy Policy</button>
               <button className="hover:text-white transition-colors">Terms of Service</button>
