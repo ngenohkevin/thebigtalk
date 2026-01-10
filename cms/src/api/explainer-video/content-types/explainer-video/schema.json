@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "explainer_videos",
+  "info": {
+    "singularName": "explainer-video",
+    "pluralName": "explainer-videos",
+    "displayName": "Explainer Video",
+    "description": "Explainer videos for civic education"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "youtubeUrl": {
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "explainer_videos"
+    },
+    "pillar": {
+      "type": "enumeration",
+      "enum": ["civic-education", "explainer", "trends"],
+      "default": "explainer"
+    },
+    "publishDate": {
+      "type": "date"
+    },
+    "isFeatured": {
+      "type": "boolean",
+      "default": false
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "duration": {
+      "type": "string",
+      "maxLength": 10
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "achievements",
+  "info": {
+    "singularName": "achievement",
+    "pluralName": "achievements",
+    "displayName": "Achievement",
+    "description": "Key achievements and milestones"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "metric": {
+      "type": "string",
+      "required": true,
+      "maxLength": 50
+    },
+    "metricLabel": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "impact": {
+      "type": "richtext"
+    },
+    "isFeatured": {
+      "type": "boolean",
+      "default": false
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

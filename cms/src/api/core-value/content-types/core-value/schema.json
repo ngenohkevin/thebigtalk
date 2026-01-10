@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "core_values",
+  "info": {
+    "singularName": "core-value",
+    "pluralName": "core-values",
+    "displayName": "Core Value",
+    "description": "Organization core values"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": ["shield", "lightbulb", "scale", "users", "target"],
+      "required": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}
