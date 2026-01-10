@@ -270,6 +270,7 @@ export default function Home() {
                   src="/images/Shallet_Kibet.jpeg"
                   alt="Latest video"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
                   className="object-cover opacity-70 group-hover:opacity-90 transition-opacity"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -348,6 +349,7 @@ export default function Home() {
                     src={member.image}
                     alt={member.name}
                     fill
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
                     className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-navy-950/40 group-hover:bg-transparent transition-all duration-500" />
@@ -377,6 +379,7 @@ export default function Home() {
                   src={selectedMember.image}
                   alt={selectedMember.name}
                   fill
+                  sizes="(max-width: 768px) 100vw, 300px"
                   className="object-cover"
                 />
               </div>
