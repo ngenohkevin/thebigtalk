@@ -4,7 +4,7 @@ import * as React from "react";
 import { useTheme } from "next-themes";
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -22,9 +22,9 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
   return (
     <button
       className={`w-9 h-9 p-0 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors ${className}`}
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
     >
-      {theme === "dark" ? (
+      {resolvedTheme === "dark" ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
