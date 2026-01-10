@@ -1,6 +1,6 @@
 // Strapi API utilities for fetching content
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://thebigtalk-cms.iopulse.cloud';
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 
 interface StrapiResponse<T> {
