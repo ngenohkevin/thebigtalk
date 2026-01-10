@@ -372,28 +372,28 @@ export default function Home() {
 
       {/* Team Member Modal */}
       <Dialog open={!!selectedMember} onOpenChange={() => setSelectedMember(null)}>
-        <DialogContent className="sm:max-w-xl bg-white dark:bg-navy-900 border-gray-200 dark:border-white/10">
+        <DialogContent className="sm:max-w-lg md:max-w-2xl lg:max-w-3xl bg-white dark:bg-navy-900 border-gray-200 dark:border-white/10">
           {selectedMember && (
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-4">
-              <div className="relative w-32 h-32 sm:w-40 sm:h-52 mx-auto sm:mx-0 flex-shrink-0 rounded-lg overflow-hidden">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 pt-4">
+              <div className="relative w-36 h-36 sm:w-48 sm:h-64 md:w-64 md:h-80 mx-auto sm:mx-0 flex-shrink-0 rounded-lg overflow-hidden">
                 <Image
                   src={selectedMember.image}
                   alt={selectedMember.name}
                   fill
-                  sizes="(max-width: 640px) 128px, 160px"
+                  sizes="(max-width: 640px) 144px, (max-width: 768px) 192px, 256px"
                   className="object-cover"
                 />
               </div>
               <div className="flex flex-col text-center sm:text-left">
                 <DialogHeader>
-                  <DialogTitle className="text-xl sm:text-2xl font-bold text-navy-900 dark:text-white">
+                  <DialogTitle className="text-xl sm:text-2xl md:text-3xl font-bold text-navy-900 dark:text-white">
                     {selectedMember.name}
                   </DialogTitle>
-                  <DialogDescription className="text-accent-coral font-medium">
+                  <DialogDescription className="text-accent-coral font-medium text-sm sm:text-base">
                     {selectedMember.role}
                   </DialogDescription>
                 </DialogHeader>
-                <p className="text-gray-600 dark:text-white/70 mt-3 sm:mt-4 leading-relaxed text-sm sm:text-base">
+                <p className="text-gray-600 dark:text-white/70 mt-3 sm:mt-4 leading-relaxed text-sm sm:text-base md:text-lg">
                   {selectedMember.bio}
                 </p>
               </div>
