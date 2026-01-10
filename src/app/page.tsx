@@ -380,13 +380,13 @@ export default function Home() {
         <DialogContent className="sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-white dark:bg-navy-900 border-gray-200 dark:border-white/10">
           {selectedMember && (
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 pt-4">
-              <div className="relative w-44 h-44 sm:w-56 sm:h-72 md:w-72 md:h-96 mx-auto sm:mx-0 flex-shrink-0 rounded-lg overflow-hidden">
+              <div className="relative w-40 h-52 sm:w-60 sm:h-80 md:w-80 md:h-[420px] mx-auto sm:mx-0 flex-shrink-0 rounded-lg overflow-hidden">
                 <Image
                   src={selectedMember.image}
                   alt={selectedMember.name}
                   fill
-                  sizes="(max-width: 640px) 176px, (max-width: 768px) 224px, 288px"
-                  className="object-cover"
+                  sizes="(max-width: 640px) 160px, (max-width: 768px) 240px, 320px"
+                  className="object-cover object-top"
                 />
               </div>
               <div className="flex flex-col text-center sm:text-left">
