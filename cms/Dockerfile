@@ -1,5 +1,5 @@
 # Multi-stage build for production Strapi v5
-FROM node:22-alpine as build
+FROM node:22-alpine AS build
 
 RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev git > /dev/null 2>&1
 
@@ -7,9 +7,9 @@ ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /opt/
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm install -g node-gyp
-RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install --only=production
+RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install --omit=dev
 
 ENV PATH=/opt/node_modules/.bin:$PATH
 
