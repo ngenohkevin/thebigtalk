@@ -32,20 +32,22 @@ import {
 // Animated counter component
 function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => Math.round(latest));
   const [displayValue, setDisplayValue] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
-    if (isInView) {
+    if (isInView && !hasAnimated) {
+      setHasAnimated(true);
       const controls = animate(count, value, {
         duration: 2,
         ease: "easeOut",
       });
       return controls.stop;
     }
-  }, [isInView, value, count]);
+  }, [isInView, value, count, hasAnimated]);
 
   useEffect(() => {
     const unsubscribe = rounded.on("change", (latest) => {
@@ -53,6 +55,16 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
     });
     return unsubscribe;
   }, [rounded]);
+
+  // Show final value as fallback if animation hasn't triggered after mount
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (displayValue === 0 && !hasAnimated) {
+        setDisplayValue(value);
+      }
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [value, displayValue, hasAnimated]);
 
   return (
     <span ref={ref}>
