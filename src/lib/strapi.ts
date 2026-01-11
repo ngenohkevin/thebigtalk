@@ -216,7 +216,6 @@ export async function getImpactStats() {
 export async function getArticles(options?: { pillar?: string; category?: string }) {
   const params: Record<string, string> = {
     'populate': 'featuredImage,author,category',
-    'filters[isPublished][$eq]': 'true',
     'sort': 'publishDate:desc',
   };
 
