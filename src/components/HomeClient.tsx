@@ -121,6 +121,49 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
   const [activeFilter, setActiveFilter] = useState("All");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Scroll to hash on page load and track section visibility
+  useEffect(() => {
+    // Scroll to hash on initial load
+    const hash = window.location.hash;
+    if (hash) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+
+    // Update URL hash based on visible section
+    const sections = ['about', 'team', 'impact', 'articles', 'videos', 'contact'];
+    const observers: IntersectionObserver[] = [];
+
+    sections.forEach((sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+                const newHash = `#${sectionId}`;
+                if (window.location.hash !== newHash) {
+                  window.history.replaceState(null, '', newHash);
+                }
+              }
+            });
+          },
+          { threshold: 0.3 }
+        );
+        observer.observe(element);
+        observers.push(observer);
+      }
+    });
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, []);
+
   // Get categories that have at least one article
   const categoriesWithArticles = categories.filter(cat =>
     articles.some(article => article.category?.slug === cat.slug)
