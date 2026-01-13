@@ -90,16 +90,19 @@ const iconMap = {
 const defaultCategories = [
   {
     name: "Civic Education",
+    slug: "civic-education",
     description: "Breaking down complex governance topics into digestible, actionable knowledge for every Kenyan citizen.",
     color: "#10B981",
   },
   {
     name: "Explainer",
+    slug: "explainer",
     description: "Deep-dive explanations of bills, policies, and government processes that affect your daily life.",
     color: "#3B82F6",
   },
   {
     name: "Trends",
+    slug: "trends",
     description: "Tracking and analyzing current affairs, political developments, and civic movements across Kenya.",
     color: "#8B5CF6",
   },
@@ -804,40 +807,44 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
 
           <div className="grid md:grid-cols-3 gap-6">
             {displayCategories.slice(0, 6).map((category, index) => (
-              <motion.div
+              <Link
                 key={category.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group bg-gray-50 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 dark:border-white/10 hover:border-accent-coral/50 hover:bg-white dark:hover:bg-white/10 transition-all cursor-pointer"
+                href={`/articles${category.slug ? `?category=${category.slug}` : ''}`}
               >
-                <div className="flex items-center gap-2 mb-4">
-                  <span
-                    className="text-xs font-bold uppercase"
-                    style={{ color: category.color || '#F97316' }}
-                  >
-                    {category.name}
-                  </span>
-                  <span
-                    className="text-xs px-2 py-0.5 rounded-full"
-                    style={{
-                      backgroundColor: `${category.color || '#F97316'}20`,
-                      color: category.color || '#F97316'
-                    }}
-                  >
-                    Featured
-                  </span>
-                </div>
-                <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
-                  {renderMarkdown(category.description || `Content related to ${category.name}`)}
-                </p>
-                <div className="pt-4 border-t border-gray-200 dark:border-white/10">
-                  <span className="text-gray-500 dark:text-white/50 text-sm group-hover:text-accent-coral transition-colors flex items-center gap-1">
-                    Explore content <ExternalLink className="w-3 h-3" />
-                  </span>
-                </div>
-              </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="group bg-gray-50 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 dark:border-white/10 hover:border-accent-coral/50 hover:bg-white dark:hover:bg-white/10 transition-all cursor-pointer h-full"
+                >
+                  <div className="flex items-center gap-2 mb-4">
+                    <span
+                      className="text-xs font-bold uppercase"
+                      style={{ color: category.color || '#F97316' }}
+                    >
+                      {category.name}
+                    </span>
+                    <span
+                      className="text-xs px-2 py-0.5 rounded-full"
+                      style={{
+                        backgroundColor: `${category.color || '#F97316'}20`,
+                        color: category.color || '#F97316'
+                      }}
+                    >
+                      Featured
+                    </span>
+                  </div>
+                  <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
+                    {renderMarkdown(category.description || `Content related to ${category.name}`)}
+                  </p>
+                  <div className="pt-4 border-t border-gray-200 dark:border-white/10">
+                    <span className="text-gray-500 dark:text-white/50 text-sm group-hover:text-accent-coral transition-colors flex items-center gap-1">
+                      Explore content <ArrowRight className="w-3 h-3" />
+                    </span>
+                  </div>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </div>
