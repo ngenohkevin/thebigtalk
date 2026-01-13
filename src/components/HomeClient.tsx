@@ -29,13 +29,14 @@ import {
   Calendar,
   ArrowRight,
 } from "lucide-react";
-import type { TeamMember, CoreValue, Article } from "@/lib/strapi";
+import type { TeamMember, CoreValue, Article, Category } from "@/lib/strapi";
 
 // Props interface
 interface HomeClientProps {
   teamMembers: TeamMember[];
   coreValues: CoreValue[];
   articles: Article[];
+  categories: Category[];
   strapiUrl: string;
 }
 
@@ -85,19 +86,22 @@ const iconMap = {
   target: Target,
 };
 
-// Content pillars (static for now)
-const contentPillars = [
+// Default categories (fallback if none from Strapi)
+const defaultCategories = [
   {
     name: "Civic Education",
     description: "Breaking down complex governance topics into digestible, actionable knowledge for every Kenyan citizen.",
+    color: "#10B981",
   },
   {
     name: "Explainer",
     description: "Deep-dive explanations of bills, policies, and government processes that affect your daily life.",
+    color: "#3B82F6",
   },
   {
     name: "Trends",
     description: "Tracking and analyzing current affairs, political developments, and civic movements across Kenya.",
+    color: "#8B5CF6",
   },
 ];
 
@@ -109,11 +113,14 @@ const socialLinks = {
   facebook: "https://facebook.com/thebigtalkke",
 };
 
-export default function HomeClient({ teamMembers, coreValues, articles, strapiUrl }: HomeClientProps) {
+export default function HomeClient({ teamMembers, coreValues, articles, categories, strapiUrl }: HomeClientProps) {
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   const [activeFilter, setActiveFilter] = useState("All");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const filters = ["All", "Civic Ed", "Explainers", "Trends"];
+
+  // Use categories from Strapi or fallback to defaults
+  const displayCategories = categories.length > 0 ? categories : defaultCategories;
+  const filters = ["All", ...displayCategories.slice(0, 3).map(c => c.name)];
 
   const navItems = [
     { name: "About", href: "#about" },
@@ -658,9 +665,12 @@ export default function HomeClient({ teamMembers, coreValues, articles, strapiUr
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      {article.pillar && (
-                        <span className="absolute top-4 left-4 bg-accent-coral text-white text-xs font-bold px-3 py-1 rounded-full">
-                          {article.pillar.replace("-", " ").toUpperCase()}
+                      {article.category && (
+                        <span
+                          className="absolute top-4 left-4 text-white text-xs font-bold px-3 py-1 rounded-full"
+                          style={{ backgroundColor: article.category.color || '#F97316' }}
+                        >
+                          {article.category.name.toUpperCase()}
                         </span>
                       )}
                     </div>
@@ -782,9 +792,9 @@ export default function HomeClient({ teamMembers, coreValues, articles, strapiUr
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {contentPillars.map((pillar, index) => (
+            {displayCategories.slice(0, 6).map((category, index) => (
               <motion.div
-                key={pillar.name}
+                key={category.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -792,15 +802,24 @@ export default function HomeClient({ teamMembers, coreValues, articles, strapiUr
                 className="group bg-gray-50 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 dark:border-white/10 hover:border-accent-coral/50 hover:bg-white dark:hover:bg-white/10 transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-accent-coral text-xs font-bold uppercase">
-                    {pillar.name}
+                  <span
+                    className="text-xs font-bold uppercase"
+                    style={{ color: category.color || '#F97316' }}
+                  >
+                    {category.name}
                   </span>
-                  <span className="bg-accent-coral/20 text-accent-coral text-xs px-2 py-0.5 rounded-full">
+                  <span
+                    className="text-xs px-2 py-0.5 rounded-full"
+                    style={{
+                      backgroundColor: `${category.color || '#F97316'}20`,
+                      color: category.color || '#F97316'
+                    }}
+                  >
                     Featured
                   </span>
                 </div>
                 <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
-                  {pillar.description}
+                  {category.description || `Content related to ${category.name}`}
                 </p>
                 <div className="pt-4 border-t border-gray-200 dark:border-white/10">
                   <span className="text-gray-500 dark:text-white/50 text-sm group-hover:text-accent-coral transition-colors flex items-center gap-1">

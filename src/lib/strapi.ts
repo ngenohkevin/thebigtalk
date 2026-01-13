@@ -92,16 +92,11 @@ export interface ExplainerVideo {
   title: string;
   description?: string;
   youtubeUrl: string;
-  pillar: 'civic-education' | 'explainer' | 'trends';
   publishDate?: string;
   isFeatured: boolean;
   order: number;
   duration?: string;
-  category?: {
-    id: number;
-    name: string;
-    slug: string;
-  };
+  category?: Category;
 }
 
 export interface ImpactStat {
@@ -122,16 +117,11 @@ export interface Article {
   content: string;
   excerpt?: string;
   featuredImage?: StrapiMedia;
-  pillar?: 'civic-education' | 'explainer' | 'trends';
   publishDate?: string;
   isPublished: boolean;
   tags?: string[];
   author?: TeamMember;
-  category?: {
-    id: number;
-    name: string;
-    slug: string;
-  };
+  category?: Category;
 }
 
 export interface Category {
@@ -189,9 +179,9 @@ export async function getTeamMembers() {
   });
 }
 
-export async function getExplainerVideos(options?: { featured?: boolean; pillar?: string }) {
+export async function getExplainerVideos(options?: { featured?: boolean; category?: string }) {
   const params: Record<string, string> = {
-    'populate': 'category',
+    'populate': '*',
     'sort': 'order:asc',
   };
 
@@ -199,8 +189,8 @@ export async function getExplainerVideos(options?: { featured?: boolean; pillar?
     params['filters[isFeatured][$eq]'] = 'true';
   }
 
-  if (options?.pillar) {
-    params['filters[pillar][$eq]'] = options.pillar;
+  if (options?.category) {
+    params['filters[category][slug][$eq]'] = options.category;
   }
 
   return fetchStrapi<ExplainerVideo[]>('/explainer-videos', params);
@@ -213,15 +203,11 @@ export async function getImpactStats() {
   });
 }
 
-export async function getArticles(options?: { pillar?: string; category?: string }) {
+export async function getArticles(options?: { category?: string }) {
   const params: Record<string, string> = {
     'populate': '*',
     'sort': 'publishDate:desc',
   };
-
-  if (options?.pillar) {
-    params['filters[pillar][$eq]'] = options.pillar;
-  }
 
   if (options?.category) {
     params['filters[category][slug][$eq]'] = options.category;

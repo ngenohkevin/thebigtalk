@@ -37,19 +37,17 @@ export default async function ArticlePage({ params }: PageProps) {
 
       {/* Article Content */}
       <article className="max-w-4xl mx-auto px-6 py-12">
-        {/* Category & Pillar */}
-        <div className="flex items-center gap-3 mb-6">
-          {article.pillar && (
-            <span className="bg-accent-coral text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
-              {article.pillar.replace("-", " ")}
-            </span>
-          )}
-          {article.category && (
-            <span className="bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-white/70 text-xs font-medium px-3 py-1 rounded-full">
+        {/* Category */}
+        {article.category && (
+          <div className="flex items-center gap-3 mb-6">
+            <span
+              className="text-white text-xs font-bold px-3 py-1 rounded-full uppercase"
+              style={{ backgroundColor: article.category.color || '#F97316' }}
+            >
               {article.category.name}
             </span>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Title */}
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy-900 dark:text-white mb-6 leading-tight">
