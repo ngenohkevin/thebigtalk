@@ -215,7 +215,7 @@ export async function getImpactStats() {
 
 export async function getArticles(options?: { pillar?: string; category?: string }) {
   const params: Record<string, string> = {
-    'populate': 'featuredImage,author,category',
+    'populate': '*',
     'sort': 'publishDate:desc',
   };
 
@@ -232,7 +232,7 @@ export async function getArticles(options?: { pillar?: string; category?: string
 
 export async function getArticleBySlug(slug: string) {
   const response = await fetchStrapi<Article[]>('/articles', {
-    'populate': 'featuredImage,author,category',
+    'populate': '*',
     'filters[slug][$eq]': slug,
   });
   return response.data?.[0] || null;
