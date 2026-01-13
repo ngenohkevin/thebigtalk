@@ -146,6 +146,17 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
     return `${strapiUrl}${image.url}`;
   };
 
+  // Helper to render markdown text (bold, italic)
+  const renderMarkdown = (text: string) => {
+    // Replace **bold** with <strong>
+    // Replace *italic* or _italic_ with <em>
+    const html = text
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+      .replace(/_([^_]+)_/g, '<em>$1</em>');
+    return <span dangerouslySetInnerHTML={{ __html: html }} />;
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-navy-950 transition-colors duration-300 overflow-x-hidden">
       {/* Navigation */}
@@ -401,7 +412,7 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
                   {member.name}
                 </h3>
                 <p className="text-accent-coral text-sm font-medium mb-2">{member.role}</p>
-                <p className="text-gray-500 dark:text-white/50 text-sm line-clamp-2">{member.shortBio}</p>
+                <p className="text-gray-500 dark:text-white/50 text-sm line-clamp-2">{member.shortBio && renderMarkdown(member.shortBio)}</p>
               </motion.div>
             ))}
           </div>
@@ -432,7 +443,7 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
                   </DialogDescription>
                 </DialogHeader>
                 <p className="text-gray-600 dark:text-white/70 mt-3 sm:mt-4 leading-relaxed text-sm sm:text-base md:text-lg">
-                  {selectedMember.bio}
+                  {renderMarkdown(selectedMember.bio)}
                 </p>
               </div>
             </div>
@@ -687,7 +698,7 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
                     </h3>
                     {article.excerpt && (
                       <p className="text-gray-600 dark:text-white/60 text-sm mb-4 line-clamp-3">
-                        {article.excerpt}
+                        {renderMarkdown(article.excerpt)}
                       </p>
                     )}
                     <Link
@@ -745,7 +756,7 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
                     {value.name}
                   </h3>
                   <p className="text-gray-600 dark:text-white/60 leading-relaxed">
-                    {value.description}
+                    {renderMarkdown(value.description)}
                   </p>
                 </motion.div>
               );
@@ -819,7 +830,7 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
                   </span>
                 </div>
                 <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
-                  {category.description || `Content related to ${category.name}`}
+                  {renderMarkdown(category.description || `Content related to ${category.name}`)}
                 </p>
                 <div className="pt-4 border-t border-gray-200 dark:border-white/10">
                   <span className="text-gray-500 dark:text-white/50 text-sm group-hover:text-accent-coral transition-colors flex items-center gap-1">

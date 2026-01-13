@@ -97,9 +97,14 @@ export default async function ArticlePage({ params }: PageProps) {
 
         {/* Excerpt */}
         {article.excerpt && (
-          <p className="text-xl text-gray-600 dark:text-white/70 mb-8 leading-relaxed font-medium">
-            {article.excerpt}
-          </p>
+          <p
+            className="text-xl text-gray-600 dark:text-white/70 mb-8 leading-relaxed font-medium"
+            dangerouslySetInnerHTML={{
+              __html: article.excerpt
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+            }}
+          />
         )}
 
         {/* Content */}
@@ -144,11 +149,11 @@ export default async function ArticlePage({ params }: PageProps) {
               );
             }
 
-            // Regular paragraph - handle bold text
-            const processedText = trimmed.replace(
-              /\*\*([^*]+)\*\*/g,
-              "<strong>$1</strong>"
-            );
+            // Regular paragraph - handle bold and italic text
+            const processedText = trimmed
+              .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+              .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+              .replace(/_([^_]+)_/g, '<em>$1</em>');
 
             return (
               <p
