@@ -121,9 +121,21 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
   const [activeFilter, setActiveFilter] = useState("All");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Use categories from Strapi or fallback to defaults
-  const displayCategories = categories.length > 0 ? categories : defaultCategories;
-  const filters = ["All", ...displayCategories.slice(0, 3).map(c => c.name)];
+  // Get categories that have at least one article
+  const categoriesWithArticles = categories.filter(cat =>
+    articles.some(article => article.category?.slug === cat.slug)
+  );
+
+  // Use categories with articles or fallback to defaults (filtered by articles)
+  const displayCategories = categoriesWithArticles.length > 0 ? categoriesWithArticles : defaultCategories;
+
+  // Build filters: "All" + only categories that have articles
+  const filters = ["All", ...categoriesWithArticles.map(c => c.name)];
+
+  // Filter articles based on selected filter
+  const filteredArticles = activeFilter === "All"
+    ? articles
+    : articles.filter(article => article.category?.name === activeFilter);
 
   const navItems = [
     { name: "About", href: "#about" },
@@ -647,7 +659,7 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="mb-16"
+              className="mb-8"
             >
               <p className="text-accent-coral font-mono text-sm mb-4 tracking-wider">
                 LATEST ARTICLES
@@ -660,8 +672,34 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
               </p>
             </motion.div>
 
+            {/* Category Filter Buttons */}
+            {filters.length > 1 && (
+              <div className="flex flex-wrap items-center gap-2 mb-10">
+                {filters.map((filter) => {
+                  const category = categoriesWithArticles.find(c => c.name === filter);
+                  return (
+                    <button
+                      key={filter}
+                      onClick={() => setActiveFilter(filter)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+                        activeFilter === filter
+                          ? "text-white"
+                          : "bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-white/70 hover:bg-gray-200 dark:hover:bg-white/20"
+                      }`}
+                      style={activeFilter === filter
+                        ? { backgroundColor: filter === "All" ? '#1e3a5f' : (category?.color || '#F97316') }
+                        : {}
+                      }
+                    >
+                      {filter}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {articles.map((article, index) => (
+              {filteredArticles.map((article, index) => (
                 <motion.article
                   key={article.id}
                   initial={{ opacity: 0, y: 30 }}
@@ -785,37 +823,24 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
               Our Content Pillars
             </h2>
             <p className="text-gray-600 dark:text-white/60 max-w-2xl mx-auto">
-              Three focused areas that drive our mission to make governance accessible to every Kenyan.
+              Focused areas that drive our mission to make governance accessible to every Kenyan.
             </p>
           </motion.div>
 
-          <div className="flex items-center justify-center gap-2 mb-10 overflow-x-auto pb-2">
-            {filters.map((filter) => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
-                  activeFilter === filter
-                    ? "bg-navy-900 dark:bg-white text-white dark:text-navy-950"
-                    : "bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-white/70 hover:bg-gray-200 dark:hover:bg-white/20"
-                }`}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
-
           <div className="grid md:grid-cols-3 gap-6">
-            {displayCategories.slice(0, 6).map((category, index) => (
-              <Link
-                key={category.name}
-                href={`/articles${category.slug ? `?category=${category.slug}` : ''}`}
-              >
+            {displayCategories.slice(0, 6).map((category, index) => {
+              const articleCount = articles.filter(a => a.category?.slug === category.slug).length;
+              return (
                 <motion.div
+                  key={category.name}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
+                  onClick={() => {
+                    setActiveFilter(category.name);
+                    document.querySelector('#articles')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                   className="group bg-gray-50 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 dark:border-white/10 hover:border-accent-coral/50 hover:bg-white dark:hover:bg-white/10 transition-all cursor-pointer h-full"
                 >
                   <div className="flex items-center gap-2 mb-4">
@@ -825,27 +850,29 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
                     >
                       {category.name}
                     </span>
-                    <span
-                      className="text-xs px-2 py-0.5 rounded-full"
-                      style={{
-                        backgroundColor: `${category.color || '#F97316'}20`,
-                        color: category.color || '#F97316'
-                      }}
-                    >
-                      Featured
-                    </span>
+                    {articleCount > 0 && (
+                      <span
+                        className="text-xs px-2 py-0.5 rounded-full"
+                        style={{
+                          backgroundColor: `${category.color || '#F97316'}20`,
+                          color: category.color || '#F97316'
+                        }}
+                      >
+                        {articleCount} article{articleCount !== 1 ? 's' : ''}
+                      </span>
+                    )}
                   </div>
                   <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
                     {renderMarkdown(category.description || `Content related to ${category.name}`)}
                   </p>
                   <div className="pt-4 border-t border-gray-200 dark:border-white/10">
                     <span className="text-gray-500 dark:text-white/50 text-sm group-hover:text-accent-coral transition-colors flex items-center gap-1">
-                      Explore content <ArrowRight className="w-3 h-3" />
+                      View articles <ArrowRight className="w-3 h-3" />
                     </span>
                   </div>
                 </motion.div>
-              </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
