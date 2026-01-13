@@ -349,11 +349,17 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
                 </p>
 
                 <div className="flex flex-wrap items-center gap-4">
-                  <button className="group flex items-center gap-3 bg-white text-navy-950 px-6 py-3 rounded-full font-semibold hover:bg-accent-cyan transition-colors">
+                  <button
+                    onClick={() => scrollToSection('#videos')}
+                    className="group flex items-center gap-3 bg-white text-navy-950 px-6 py-3 rounded-full font-semibold hover:bg-accent-cyan transition-colors"
+                  >
                     <span>Explore What We Do</span>
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </button>
-                  <button className="group flex items-center gap-3 border border-white/30 hover:border-white/60 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition-all">
+                  <button
+                    onClick={() => scrollToSection('#team')}
+                    className="group flex items-center gap-3 border border-white/30 hover:border-white/60 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition-all"
+                  >
                     <span className="w-8 h-8 bg-accent-coral rounded-full flex items-center justify-center">
                       <Play className="w-4 h-4 text-white ml-0.5" fill="white" />
                     </span>
