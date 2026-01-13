@@ -62,7 +62,7 @@ async function fetchStrapi<T>(
 
   const res = await fetch(url.toString(), {
     headers,
-    next: { revalidate: options?.revalidate ?? 3600 }, // Default: 1 hour
+    next: { revalidate: options?.revalidate ?? 60 }, // Default: 1 minute
     cache: options?.cache,
   });
 
