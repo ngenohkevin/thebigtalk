@@ -264,7 +264,7 @@ export function getYouTubeVideoId(url: string): string | null {
 // Helper to get YouTube thumbnail
 export function getYouTubeThumbnail(url: string, quality: 'default' | 'medium' | 'high' | 'maxres' = 'high'): string {
   const videoId = getYouTubeVideoId(url);
-  if (!videoId) return '';
+  if (!videoId) return '/images/logo.jpeg'; // Fallback to logo if invalid YouTube URL
 
   const qualityMap = {
     default: 'default',
