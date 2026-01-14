@@ -263,9 +263,9 @@ export default function HomeClient({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-navy-950 transition-colors duration-300 overflow-x-hidden">
+    <div id="main-content" role="main" className="min-h-screen bg-gray-50 dark:bg-navy-950 transition-colors duration-300 overflow-x-hidden">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white/90 dark:bg-navy-950/90 backdrop-blur-xl border-b border-gray-200 dark:border-white/5 transition-colors">
+      <nav aria-label="Main navigation" className="sticky top-0 z-50 bg-white/90 dark:bg-navy-950/90 backdrop-blur-xl border-b border-gray-200 dark:border-white/5 transition-colors">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3">
@@ -311,12 +311,14 @@ export default function HomeClient({
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
-                aria-label="Toggle menu"
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-menu"
               >
                 {mobileMenuOpen ? (
-                  <X className="w-6 h-6 text-navy-900 dark:text-white" />
+                  <X className="w-6 h-6 text-navy-900 dark:text-white" aria-hidden="true" />
                 ) : (
-                  <Menu className="w-6 h-6 text-navy-900 dark:text-white" />
+                  <Menu className="w-6 h-6 text-navy-900 dark:text-white" aria-hidden="true" />
                 )}
               </button>
             </div>
@@ -326,6 +328,9 @@ export default function HomeClient({
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <motion.div
+            id="mobile-menu"
+            role="navigation"
+            aria-label="Mobile navigation"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -994,7 +999,7 @@ export default function HomeClient({
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="bg-navy-950 border-t border-white/10 py-16 px-6">
+      <footer id="contact" role="contentinfo" aria-label="Site footer" className="bg-navy-950 border-t border-white/10 py-16 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div className="md:col-span-2">

@@ -142,6 +142,10 @@ const websiteJsonLd = {
   },
 };
 
+// Umami Analytics configuration
+const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
+const umamiUrl = process.env.NEXT_PUBLIC_UMAMI_URL || "https://analytics.iopulse.cloud";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -150,6 +154,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Umami Analytics */}
+        {umamiWebsiteId && (
+          <Script
+            src={`${umamiUrl}/script.js`}
+            data-website-id={umamiWebsiteId}
+            strategy="afterInteractive"
+          />
+        )}
         <Script
           id="organization-jsonld"
           type="application/ld+json"
@@ -162,6 +174,13 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
+        {/* Skip to main content link for screen readers */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-accent-coral focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:outline-none"
+        >
+          Skip to main content
+        </a>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Script from "next/script";
 import { getArticleBySlug, getStrapiMediaUrl } from "@/lib/strapi";
 import { ArrowLeft, Calendar, User } from "lucide-react";
+import ShareButtons from "@/components/ShareButtons";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://thebigtalk.iopulse.cloud";
 const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "https://thebigtalk-cms.iopulse.cloud";
@@ -61,7 +62,7 @@ export default async function ArticlePage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
-    <main className="min-h-screen bg-white dark:bg-navy-950 transition-colors">
+    <main id="main-content" className="min-h-screen bg-white dark:bg-navy-950 transition-colors">
       {/* Header */}
       <header className="bg-navy-900 dark:bg-navy-950 text-white py-6 px-6 border-b border-white/10">
         <div className="max-w-4xl mx-auto">
@@ -224,8 +225,17 @@ export default async function ArticlePage({ params }: PageProps) {
           </div>
         )}
 
-        {/* Back Link */}
+        {/* Share Buttons */}
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-white/10">
+          <ShareButtons
+            url={`${siteUrl}/articles/${slug}`}
+            title={article.title}
+            description={article.excerpt}
+          />
+        </div>
+
+        {/* Back Link */}
+        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-white/10 flex items-center justify-between">
           <Link
             href="/#articles"
             className="inline-flex items-center gap-2 text-accent-coral hover:underline font-medium"
