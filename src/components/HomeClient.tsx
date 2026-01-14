@@ -40,6 +40,7 @@ import type {
   SiteSettings,
 } from "@/lib/strapi";
 import { getYouTubeVideoId, getYouTubeThumbnail } from "@/lib/strapi";
+import VideoModal from "@/components/VideoModal";
 
 // Props interface
 interface HomeClientProps {
@@ -167,6 +168,7 @@ export default function HomeClient({
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   const [activeFilter, setActiveFilter] = useState("All");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
 
   // Scroll to hash on page load and track section visibility
   useEffect(() => {
@@ -232,7 +234,7 @@ export default function HomeClient({
     { name: "Team", href: "#team" },
     { name: "Impact", href: "#impact" },
     { name: "Articles", href: "#articles" },
-    { name: "Videos", href: "#videos" },
+    { name: "Videos", href: "/videos", external: true },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -284,13 +286,23 @@ export default function HomeClient({
             </Link>
             <div className="hidden md:flex items-center gap-8">
               {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-gray-600 dark:text-white/70 hover:text-navy-900 dark:hover:text-white text-sm font-medium transition-colors"
-                >
-                  {item.name}
-                </button>
+                'external' in item && item.external ? (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="text-gray-600 dark:text-white/70 hover:text-navy-900 dark:hover:text-white text-sm font-medium transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <button
+                    key={item.name}
+                    onClick={() => scrollToSection(item.href)}
+                    className="text-gray-600 dark:text-white/70 hover:text-navy-900 dark:hover:text-white text-sm font-medium transition-colors"
+                  >
+                    {item.name}
+                  </button>
+                )
               ))}
             </div>
             <div className="flex items-center gap-4">
@@ -338,13 +350,24 @@ export default function HomeClient({
           >
             <div className="px-6 py-4 space-y-1">
               {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className="block w-full text-left px-4 py-3 text-gray-600 dark:text-white/70 hover:text-navy-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 rounded-lg text-sm font-medium transition-colors"
-                >
-                  {item.name}
-                </button>
+                'external' in item && item.external ? (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="block w-full text-left px-4 py-3 text-gray-600 dark:text-white/70 hover:text-navy-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 rounded-lg text-sm font-medium transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <button
+                    key={item.name}
+                    onClick={() => scrollToSection(item.href)}
+                    className="block w-full text-left px-4 py-3 text-gray-600 dark:text-white/70 hover:text-navy-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    {item.name}
+                  </button>
+                )
               ))}
               <div className="pt-4 border-t border-gray-200 dark:border-white/10 mt-4">
                 <div className="flex items-center gap-3 px-4">
@@ -402,7 +425,7 @@ export default function HomeClient({
 
                 <div className="flex flex-wrap items-center gap-4">
                   <button
-                    onClick={() => scrollToSection('#videos')}
+                    onClick={() => scrollToSection('#pillars')}
                     className="group flex items-center gap-3 bg-white text-navy-950 px-6 py-3 rounded-full font-semibold hover:bg-accent-cyan transition-colors"
                   >
                     <span>Explore What We Do</span>
@@ -432,11 +455,9 @@ export default function HomeClient({
                 <span className="text-green-500 text-xs font-bold">LATEST EXPLAINER</span>
               </div>
 
-              <a
-                href={featuredVideo?.youtubeUrl || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block relative aspect-video rounded-2xl overflow-hidden mb-4 bg-gray-100 dark:bg-navy-800 group cursor-pointer"
+              <button
+                onClick={() => featuredVideo && setVideoModalOpen(true)}
+                className="block w-full relative aspect-video rounded-2xl overflow-hidden mb-4 bg-gray-100 dark:bg-navy-800 group cursor-pointer"
               >
                 <Image
                   src={featuredVideo ? getYouTubeThumbnail(featuredVideo.youtubeUrl) : "/images/Shallet_Kibet.jpeg"}
@@ -455,7 +476,7 @@ export default function HomeClient({
                     {featuredVideo.duration}
                   </span>
                 )}
-              </a>
+              </button>
 
               <h3 className="text-navy-900 dark:text-white font-bold mb-2">
                 {featuredVideo?.title || "Understanding Public Participation"}
@@ -464,14 +485,12 @@ export default function HomeClient({
                 {featuredVideo?.description || "Your voice matters in governance decisions."}
               </p>
 
-              <a
-                href={featuredVideo?.youtubeUrl || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => featuredVideo && setVideoModalOpen(true)}
                 className="text-accent-coral text-sm font-medium hover:underline flex items-center gap-1"
               >
-                Watch Now <ExternalLink className="w-3 h-3" />
-              </a>
+                Watch Now <Play className="w-3 h-3" />
+              </button>
             </motion.div>
 
             <motion.div
@@ -928,7 +947,7 @@ export default function HomeClient({
       </section>
 
       {/* Content Pillars Section */}
-      <section id="videos" className="py-20 px-6 bg-white dark:bg-navy-900 transition-colors">
+      <section id="pillars" className="py-20 px-6 bg-white dark:bg-navy-900 transition-colors">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1062,16 +1081,25 @@ export default function HomeClient({
                   { name: "Our Team", href: "#team" },
                   { name: "Impact", href: "#impact" },
                   { name: "Articles", href: "#articles" },
-                  { name: "Videos", href: "#videos" },
+                  { name: "Videos", href: "/videos", external: true },
                   { name: "Contact", href: "#contact" },
                 ].map((item) => (
                   <li key={item.name}>
-                    <button
-                      onClick={() => scrollToSection(item.href)}
-                      className="text-white/50 hover:text-accent-coral text-sm transition-colors"
-                    >
-                      {item.name}
-                    </button>
+                    {'external' in item && item.external ? (
+                      <Link
+                        href={item.href}
+                        className="text-white/50 hover:text-accent-coral text-sm transition-colors"
+                      >
+                        {item.name}
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={() => scrollToSection(item.href)}
+                        className="text-white/50 hover:text-accent-coral text-sm transition-colors"
+                      >
+                        {item.name}
+                      </button>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -1102,6 +1130,16 @@ export default function HomeClient({
           </div>
         </div>
       </footer>
+
+      {/* Video Modal for Featured Video */}
+      {featuredVideo && (
+        <VideoModal
+          isOpen={videoModalOpen}
+          onClose={() => setVideoModalOpen(false)}
+          youtubeUrl={featuredVideo.youtubeUrl}
+          title={featuredVideo.title}
+        />
+      )}
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
-import { getExplainerVideos, getCategories, getYouTubeThumbnail } from "@/lib/strapi";
-import { ArrowLeft, Play, Calendar, ExternalLink } from "lucide-react";
+import { getExplainerVideos, getCategories } from "@/lib/strapi";
+import { ArrowLeft, Play } from "lucide-react";
 import type { Metadata } from "next";
+import VideoGrid from "@/components/VideoGrid";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://thebigtalk.iopulse.cloud";
 
@@ -111,86 +111,7 @@ export default async function VideosPage({ searchParams }: PageProps) {
 
         {/* Videos Grid */}
         {videos.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {videos.map((video) => (
-              <a
-                key={video.id}
-                href={video.youtubeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group bg-gray-50 dark:bg-navy-800/50 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 hover:border-accent-coral/50 transition-all"
-              >
-                {/* Thumbnail */}
-                <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={getYouTubeThumbnail(video.youtubeUrl)}
-                    alt={video.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  {/* Play Button Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
-                    <div className="w-16 h-16 bg-accent-coral/90 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Play className="w-6 h-6 text-white ml-1" fill="white" />
-                    </div>
-                  </div>
-                  {/* Duration */}
-                  {video.duration && (
-                    <span className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                      {video.duration}
-                    </span>
-                  )}
-                  {/* Category Badge */}
-                  {video.category && (
-                    <span
-                      className="absolute top-3 left-3 text-white text-xs font-bold px-2 py-1 rounded-full"
-                      style={{ backgroundColor: video.category.color || "#F97316" }}
-                    >
-                      {video.category.name}
-                    </span>
-                  )}
-                  {/* Featured Badge */}
-                  {video.isFeatured && (
-                    <span className="absolute top-3 right-3 bg-accent-gold text-navy-950 text-xs font-bold px-2 py-1 rounded-full">
-                      Featured
-                    </span>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="p-5">
-                  <h3 className="text-lg font-bold text-navy-900 dark:text-white mb-2 group-hover:text-accent-coral transition-colors line-clamp-2">
-                    {video.title}
-                  </h3>
-
-                  {video.description && (
-                    <p className="text-gray-600 dark:text-white/60 text-sm mb-4 line-clamp-2">
-                      {video.description}
-                    </p>
-                  )}
-
-                  <div className="flex items-center justify-between">
-                    {video.publishDate && (
-                      <div className="flex items-center gap-1.5 text-gray-500 dark:text-white/50 text-sm">
-                        <Calendar className="w-4 h-4" />
-                        <span>
-                          {new Date(video.publishDate).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })}
-                        </span>
-                      </div>
-                    )}
-                    <span className="flex items-center gap-1 text-accent-coral text-sm font-medium">
-                      Watch <ExternalLink className="w-3 h-3" />
-                    </span>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
+          <VideoGrid videos={videos} />
         ) : (
           <div className="text-center py-20">
             <div className="w-20 h-20 bg-gray-100 dark:bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
