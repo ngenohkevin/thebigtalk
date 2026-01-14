@@ -15,6 +15,12 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Build args for NEXT_PUBLIC_ env vars (needed at build time)
+ARG NEXT_PUBLIC_UMAMI_WEBSITE_ID
+ARG NEXT_PUBLIC_UMAMI_URL
+ARG NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_STRAPI_URL
+
 # Build the application
 RUN npm run build
 
