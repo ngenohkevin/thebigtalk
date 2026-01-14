@@ -29,7 +29,17 @@ import {
   Calendar,
   ArrowRight,
 } from "lucide-react";
-import type { TeamMember, CoreValue, Article, Category } from "@/lib/strapi";
+import type {
+  TeamMember,
+  CoreValue,
+  Article,
+  Category,
+  ExplainerVideo,
+  ImpactStat,
+  Achievement,
+  SiteSettings,
+} from "@/lib/strapi";
+import { getYouTubeVideoId, getYouTubeThumbnail } from "@/lib/strapi";
 
 // Props interface
 interface HomeClientProps {
@@ -37,6 +47,10 @@ interface HomeClientProps {
   coreValues: CoreValue[];
   articles: Article[];
   categories: Category[];
+  explainerVideos: ExplainerVideo[];
+  impactStats: ImpactStat[];
+  achievements: Achievement[];
+  siteSettings: SiteSettings | null;
   strapiUrl: string;
 }
 
@@ -108,15 +122,48 @@ const defaultCategories = [
   },
 ];
 
-// Social links (static for now)
-const socialLinks = {
+// Default social links (fallback if Strapi settings not available)
+const defaultSocialLinks = {
   tiktok: "https://tiktok.com/@thebigtalkke",
   instagram: "https://instagram.com/thebigtalkke",
   twitter: "https://x.com/thebigtalkke",
   facebook: "https://facebook.com/thebigtalkke",
+  youtube: "",
 };
 
-export default function HomeClient({ teamMembers, coreValues, articles, categories, strapiUrl }: HomeClientProps) {
+// Default impact stats (fallback)
+const defaultImpactStats = [
+  { id: 1, value: "500,000+", label: "Citizen signatures mobilized", order: 1 },
+  { id: 2, value: "UNESCO", label: "Youth Hackathon 2025", order: 2 },
+  { id: 3, value: "50+", label: "Explainer videos produced", order: 3 },
+  { id: 4, value: "Heshimika", label: "Awards for civic leadership", order: 4 },
+];
+
+export default function HomeClient({
+  teamMembers,
+  coreValues,
+  articles,
+  categories,
+  explainerVideos,
+  impactStats,
+  achievements,
+  siteSettings,
+  strapiUrl,
+}: HomeClientProps) {
+  // Use site settings for social links or fallback to defaults
+  const socialLinks = {
+    tiktok: siteSettings?.tiktokUrl || defaultSocialLinks.tiktok,
+    instagram: siteSettings?.instagramUrl || defaultSocialLinks.instagram,
+    twitter: siteSettings?.twitterUrl || defaultSocialLinks.twitter,
+    facebook: siteSettings?.facebookUrl || defaultSocialLinks.facebook,
+    youtube: siteSettings?.youtubeUrl || defaultSocialLinks.youtube,
+  };
+
+  // Use impact stats from Strapi or fallback
+  const displayImpactStats = impactStats.length > 0 ? impactStats : defaultImpactStats;
+
+  // Get featured video for hero section
+  const featuredVideo = explainerVideos.length > 0 ? explainerVideos[0] : null;
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   const [activeFilter, setActiveFilter] = useState("All");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -380,10 +427,15 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
                 <span className="text-green-500 text-xs font-bold">LATEST EXPLAINER</span>
               </div>
 
-              <div className="relative aspect-video rounded-2xl overflow-hidden mb-4 bg-gray-100 dark:bg-navy-800 group cursor-pointer">
+              <a
+                href={featuredVideo?.youtubeUrl || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block relative aspect-video rounded-2xl overflow-hidden mb-4 bg-gray-100 dark:bg-navy-800 group cursor-pointer"
+              >
                 <Image
-                  src="/images/Shallet_Kibet.jpeg"
-                  alt="Latest video"
+                  src={featuredVideo ? getYouTubeThumbnail(featuredVideo.youtubeUrl) : "/images/Shallet_Kibet.jpeg"}
+                  alt={featuredVideo?.title || "Latest video"}
                   fill
                   sizes="(max-width: 1024px) 100vw, 33vw"
                   className="object-cover opacity-70 group-hover:opacity-90 transition-opacity"
@@ -393,17 +445,28 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
                     <Play className="w-6 h-6 text-white ml-1" fill="white" />
                   </div>
                 </div>
-                <span className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                  3:45
-                </span>
-              </div>
+                {featuredVideo?.duration && (
+                  <span className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                    {featuredVideo.duration}
+                  </span>
+                )}
+              </a>
 
-              <h3 className="text-navy-900 dark:text-white font-bold mb-2">Understanding Public Participation</h3>
-              <p className="text-gray-500 dark:text-white/50 text-sm mb-4">Your voice matters in governance decisions.</p>
+              <h3 className="text-navy-900 dark:text-white font-bold mb-2">
+                {featuredVideo?.title || "Understanding Public Participation"}
+              </h3>
+              <p className="text-gray-500 dark:text-white/50 text-sm mb-4">
+                {featuredVideo?.description || "Your voice matters in governance decisions."}
+              </p>
 
-              <button className="text-accent-coral text-sm font-medium hover:underline flex items-center gap-1">
+              <a
+                href={featuredVideo?.youtubeUrl || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent-coral text-sm font-medium hover:underline flex items-center gap-1"
+              >
                 Watch Now <ExternalLink className="w-3 h-3" />
-              </button>
+              </a>
             </motion.div>
 
             <motion.div
@@ -536,56 +599,54 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0 }}
-                viewport={{ once: true }}
-                className="text-center px-2"
-              >
-                <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-3">
-                  <AnimatedCounter value={500000} suffix="+" />
-                </p>
-                <p className="text-gray-500 dark:text-white/50 text-xs sm:text-sm">Citizen signatures mobilized</p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                viewport={{ once: true }}
-                className="text-center px-2"
-              >
-                <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-accent-coral mb-3">UNESCO</p>
-                <p className="text-gray-500 dark:text-white/50 text-xs sm:text-sm">Youth Hackathon 2025</p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="text-center px-2"
-              >
-                <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-3">
-                  <AnimatedCounter value={50} suffix="+" />
-                </p>
-                <p className="text-gray-500 dark:text-white/50 text-xs sm:text-sm">Explainer videos produced</p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                viewport={{ once: true }}
-                className="text-center px-2"
-              >
-                <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-accent-cyan mb-3">Heshimika</p>
-                <p className="text-gray-500 dark:text-white/50 text-xs sm:text-sm">Awards for civic leadership</p>
-              </motion.div>
+              {displayImpactStats.map((stat, index) => {
+                // Parse numeric value for animation if it contains numbers
+                const numericMatch = stat.value.match(/^([\d,]+)/);
+                const numericValue = numericMatch ? parseInt(numericMatch[1].replace(/,/g, '')) : null;
+                const suffix = stat.value.replace(/^[\d,]+/, '');
+
+                // Alternate colors for visual variety
+                const colors = [
+                  'text-navy-900 dark:text-white',
+                  'text-accent-coral',
+                  'text-navy-900 dark:text-white',
+                  'text-accent-cyan',
+                ];
+
+                return (
+                  <motion.div
+                    key={stat.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="text-center px-2"
+                  >
+                    <p className={`text-3xl sm:text-4xl md:text-5xl font-bold ${colors[index % 4]} mb-3`}>
+                      {numericValue ? (
+                        <AnimatedCounter value={numericValue} suffix={suffix} />
+                      ) : (
+                        stat.value
+                      )}
+                    </p>
+                    <p className="text-gray-500 dark:text-white/50 text-xs sm:text-sm">{stat.label}</p>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* 500,000 Signatures Achievement Section */}
+      {(() => {
+        const featuredAchievement = achievements.length > 0 ? achievements[0] : null;
+        const achievementMetric = featuredAchievement?.metric || "500,000+";
+        const metricNumericMatch = achievementMetric.match(/^([\d,]+)/);
+        const metricNumericValue = metricNumericMatch ? parseInt(metricNumericMatch[1].replace(/,/g, '')) : null;
+        const metricSuffix = achievementMetric.replace(/^[\d,]+/, '');
+
+        return (
       <section className="py-24 px-6 bg-navy-900 dark:bg-navy-950">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -599,15 +660,19 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
                 LANDMARK ACHIEVEMENT
               </p>
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                <AnimatedCounter value={500000} suffix="+" />
+                {metricNumericValue ? (
+                  <AnimatedCounter value={metricNumericValue} suffix={metricSuffix} />
+                ) : (
+                  achievementMetric
+                )}
                 <span className="block text-white/80 text-3xl md:text-4xl mt-2">
-                  Citizen Signatures
+                  {featuredAchievement?.metricLabel || "Citizen Signatures"}
                 </span>
               </h2>
               <p className="text-white/70 text-lg leading-relaxed mb-8">
-                In a historic demonstration of civic engagement, The Big Talk mobilized over half a million
+                {featuredAchievement?.description || `In a historic demonstration of civic engagement, The Big Talk mobilized over half a million
                 Kenyan citizens to oppose the proposed Term Limit Bill — a bill that sought to fundamentally
-                alter Kenya&apos;s democratic framework.
+                alter Kenya's democratic framework.`}
               </p>
 
               <div className="space-y-4 mb-8">
@@ -698,6 +763,8 @@ export default function HomeClient({ teamMembers, coreValues, articles, categori
           </div>
         </div>
       </section>
+        );
+      })()}
 
       {/* Articles Section */}
       {articles.length > 0 && (
