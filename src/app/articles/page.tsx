@@ -160,20 +160,51 @@ export default async function ArticlesPage({ searchParams }: PageProps) {
 
 export async function generateMetadata({ searchParams }: PageProps) {
   const { category } = await searchParams;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://thebigtalk.iopulse.cloud";
 
   if (category) {
     const categoriesRes = await getCategories().catch(() => ({ data: [] }));
     const cat = categoriesRes.data?.find(c => c.slug === category);
     if (cat) {
       return {
-        title: `${cat.name} Articles | The Big Talk`,
-        description: cat.description || `Articles about ${cat.name}`,
+        title: `${cat.name} Articles`,
+        description: cat.description || `Explore articles about ${cat.name}. In-depth analysis, explainers, and civic education content from The Big Talk Kenya.`,
+        keywords: [cat.name, "civic education", "Kenya", "governance", "policy", "articles"],
+        openGraph: {
+          title: `${cat.name} Articles | The Big Talk`,
+          description: cat.description || `Explore articles about ${cat.name} from The Big Talk Kenya.`,
+          url: `${siteUrl}/articles?category=${cat.slug}`,
+          type: "website",
+        },
+        twitter: {
+          card: "summary",
+          title: `${cat.name} Articles | The Big Talk`,
+          description: cat.description || `Explore articles about ${cat.name} from The Big Talk Kenya.`,
+        },
+        alternates: {
+          canonical: `${siteUrl}/articles?category=${cat.slug}`,
+        },
       };
     }
   }
 
   return {
-    title: "Articles | The Big Talk",
-    description: "Insights, analysis, and civic education content from The Big Talk",
+    title: "Articles",
+    description: "Explore insights, analysis, and civic education content from The Big Talk. Deep dives into Kenyan governance, policy explainers, and civic engagement guides.",
+    keywords: ["civic education articles", "Kenya governance", "policy analysis", "civic engagement", "democracy Kenya"],
+    openGraph: {
+      title: "Articles | The Big Talk",
+      description: "Insights, analysis, and civic education content from The Big Talk Kenya.",
+      url: `${siteUrl}/articles`,
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: "Articles | The Big Talk",
+      description: "Insights, analysis, and civic education content from The Big Talk Kenya.",
+    },
+    alternates: {
+      canonical: `${siteUrl}/articles`,
+    },
   };
 }

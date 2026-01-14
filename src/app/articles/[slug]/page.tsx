@@ -1,8 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import { getArticleBySlug, getStrapiMediaUrl } from "@/lib/strapi";
 import { ArrowLeft, Calendar, User } from "lucide-react";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://thebigtalk.iopulse.cloud";
+const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "https://thebigtalk-cms.iopulse.cloud";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -20,7 +24,43 @@ export default async function ArticlePage({ params }: PageProps) {
     ? getStrapiMediaUrl(article.featuredImage)
     : null;
 
+  // Generate JSON-LD structured data for the article
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.excerpt || `Read ${article.title} on The Big Talk`,
+    image: featuredImageUrl ? (featuredImageUrl.startsWith("http") ? featuredImageUrl : `${strapiUrl}${featuredImageUrl}`) : `${siteUrl}/images/logo.jpeg`,
+    datePublished: article.publishDate || new Date().toISOString(),
+    dateModified: article.publishDate || new Date().toISOString(),
+    author: {
+      "@type": "Person",
+      name: article.author?.name || "The Big Talk Team",
+      jobTitle: article.author?.role,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "The Big Talk",
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/images/logo.jpeg`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/articles/${slug}`,
+    },
+    keywords: article.tags?.join(", ") || "civic education, Kenya, governance",
+    articleSection: article.category?.name || "Civic Education",
+  };
+
   return (
+    <>
+      <Script
+        id="article-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
     <main className="min-h-screen bg-white dark:bg-navy-950 transition-colors">
       {/* Header */}
       <header className="bg-navy-900 dark:bg-navy-950 text-white py-6 px-6 border-b border-white/10">
@@ -196,6 +236,7 @@ export default async function ArticlePage({ params }: PageProps) {
         </div>
       </article>
     </main>
+    </>
   );
 }
 
@@ -205,12 +246,59 @@ export async function generateMetadata({ params }: PageProps) {
 
   if (!article) {
     return {
-      title: "Article Not Found | The Big Talk",
+      title: "Article Not Found",
+      description: "The article you're looking for could not be found.",
     };
   }
 
+  const featuredImageUrl = article.featuredImage
+    ? getStrapiMediaUrl(article.featuredImage)
+    : null;
+
+  const imageUrl = featuredImageUrl
+    ? (featuredImageUrl.startsWith("http") ? featuredImageUrl : `${strapiUrl}${featuredImageUrl}`)
+    : `${siteUrl}/images/logo.jpeg`;
+
   return {
-    title: `${article.title} | The Big Talk`,
-    description: article.excerpt || `Read ${article.title} on The Big Talk`,
+    title: article.title,
+    description: article.excerpt || `Read ${article.title} - In-depth civic education content from The Big Talk Kenya.`,
+    keywords: [
+      ...(article.tags || []),
+      article.category?.name || "civic education",
+      "Kenya",
+      "governance",
+      "The Big Talk",
+    ],
+    authors: article.author ? [{ name: article.author.name }] : [{ name: "The Big Talk Team" }],
+    openGraph: {
+      type: "article",
+      title: article.title,
+      description: article.excerpt || `Read ${article.title} on The Big Talk`,
+      url: `${siteUrl}/articles/${slug}`,
+      siteName: "The Big Talk",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+      publishedTime: article.publishDate,
+      authors: article.author ? [article.author.name] : ["The Big Talk Team"],
+      section: article.category?.name || "Civic Education",
+      tags: article.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt || `Read ${article.title} on The Big Talk`,
+      images: [imageUrl],
+      site: "@thebigtalkke",
+      creator: "@thebigtalkke",
+    },
+    alternates: {
+      canonical: `${siteUrl}/articles/${slug}`,
+    },
   };
 }
