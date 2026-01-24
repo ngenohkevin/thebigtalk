@@ -56,6 +56,26 @@
     "watchOurStoryTitle": {
       "type": "string",
       "default": "Watch Our Story"
+    },
+    "contactEmail": {
+      "type": "email"
+    },
+    "contactPhone": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "contactAddress": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "contactCity": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "contactCountry": {
+      "type": "string",
+      "maxLength": 100,
+      "default": "Kenya"
     }
   }
 }

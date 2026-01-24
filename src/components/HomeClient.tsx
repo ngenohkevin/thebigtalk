@@ -1235,31 +1235,44 @@ export default function HomeClient({
                 ))}
               </ul>
             </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Content</h4>
-              <ul className="space-y-2">
-                {displayContentPillars.map((pillar) => (
-                  <li key={pillar.id}>
-                    <button
-                      onClick={() => scrollToSection('#what-we-do')}
-                      className="text-white/50 hover:text-accent-coral text-sm transition-colors"
-                    >
-                      {pillar.name}
-                    </button>
-                  </li>
-                ))}
-                {explainerVideos.length > 0 && (
-                  <li>
-                    <Link
-                      href="/videos"
-                      className="text-white/50 hover:text-accent-coral text-sm transition-colors"
-                    >
-                      Latest Videos
-                    </Link>
-                  </li>
-                )}
-              </ul>
-            </div>
+            {/* Contact Section - only show if contact info is available */}
+            {(siteSettings?.contactEmail || siteSettings?.contactPhone || siteSettings?.contactAddress) && (
+              <div>
+                <h4 className="text-white font-semibold mb-4">Contact</h4>
+                <ul className="space-y-2">
+                  {siteSettings?.contactEmail && (
+                    <li>
+                      <a
+                        href={`mailto:${siteSettings.contactEmail}`}
+                        className="text-white/50 hover:text-accent-coral text-sm transition-colors"
+                      >
+                        {siteSettings.contactEmail}
+                      </a>
+                    </li>
+                  )}
+                  {siteSettings?.contactPhone && (
+                    <li>
+                      <a
+                        href={`tel:${siteSettings.contactPhone.replace(/\s/g, '')}`}
+                        className="text-white/50 hover:text-accent-coral text-sm transition-colors"
+                      >
+                        {siteSettings.contactPhone}
+                      </a>
+                    </li>
+                  )}
+                  {siteSettings?.contactAddress && (
+                    <li className="text-white/50 text-sm">
+                      {siteSettings.contactAddress}
+                    </li>
+                  )}
+                  {(siteSettings?.contactCity || siteSettings?.contactCountry) && (
+                    <li className="text-white/50 text-sm">
+                      {[siteSettings?.contactCity, siteSettings?.contactCountry].filter(Boolean).join(', ')}
+                    </li>
+                  )}
+                </ul>
+              </div>
+            )}
           </div>
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 text-center md:text-left">
             <p className="text-white/40 text-sm">
@@ -1269,7 +1282,9 @@ export default function HomeClient({
               Making governance accessible for all Kenyans
             </p>
             <p className="text-white/40 text-sm">
-              Nairobi, Kenya
+              {siteSettings?.contactCity && siteSettings?.contactCountry
+                ? `${siteSettings.contactCity}, ${siteSettings.contactCountry}`
+                : siteSettings?.contactCountry || 'Nairobi, Kenya'}
             </p>
           </div>
         </div>

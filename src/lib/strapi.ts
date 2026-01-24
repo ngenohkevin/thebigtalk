@@ -170,6 +170,11 @@ export interface SiteSettings {
   youtubeUrl?: string;
   watchOurStoryUrl?: string;
   watchOurStoryTitle?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  contactAddress?: string;
+  contactCity?: string;
+  contactCountry?: string;
 }
 
 export interface ContentPillar {
