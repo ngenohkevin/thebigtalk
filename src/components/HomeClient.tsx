@@ -755,133 +755,80 @@ export default function HomeClient({
         </div>
       </section>
 
-      {/* 500,000 Signatures Achievement Section */}
-      {(() => {
-        const featuredAchievement = achievements.length > 0 ? achievements[0] : null;
-        const achievementMetric = featuredAchievement?.metric || "500,000+";
-        const metricNumericMatch = achievementMetric.match(/^([\d,]+)/);
-        const metricNumericValue = metricNumericMatch ? parseInt(metricNumericMatch[1].replace(/,/g, '')) : null;
-        const metricSuffix = achievementMetric.replace(/^[\d,]+/, '');
-
-        return (
-      <section className="py-24 px-6 bg-navy-900 dark:bg-navy-950">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Achievements Section */}
+      {achievements.length > 0 && (
+        <section className="py-24 px-6 bg-navy-900 dark:bg-navy-950">
+          <div className="max-w-7xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
+              className="text-center mb-16"
             >
               <p className="text-accent-coral font-mono text-sm mb-4 tracking-wider">
-                LANDMARK ACHIEVEMENT
+                OUR ACHIEVEMENTS
               </p>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                {metricNumericValue ? (
-                  <AnimatedCounter value={metricNumericValue} suffix={metricSuffix} />
-                ) : (
-                  achievementMetric
-                )}
-                <span className="block text-white/80 text-3xl md:text-4xl mt-2">
-                  {featuredAchievement?.metricLabel || "Citizen Signatures"}
-                </span>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                Milestones of Impact
               </h2>
-              <p className="text-white/70 text-lg leading-relaxed mb-8">
-                {featuredAchievement?.description || `In a historic demonstration of civic engagement, The Big Talk mobilized over half a million
-                Kenyan citizens to oppose the proposed Term Limit Bill — a bill that sought to fundamentally
-                alter Kenya's democratic framework.`}
+              <p className="text-white/60 max-w-2xl mx-auto">
+                From mobilizing citizens to gaining international recognition, here are the milestones that define our journey.
               </p>
-
-              <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-accent-coral/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <FileCheck className="w-5 h-5 text-accent-coral" />
-                  </div>
-                  <div>
-                    <h4 className="text-white font-semibold mb-1">The Bill&apos;s Proposal</h4>
-                    <p className="text-white/60 text-sm">
-                      Extend presidential terms from 5 to 7 years and introduce an Office of Prime Minister.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-accent-cyan/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Megaphone className="w-5 h-5 text-accent-cyan" />
-                  </div>
-                  <div>
-                    <h4 className="text-white font-semibold mb-1">Our Response</h4>
-                    <p className="text-white/60 text-sm">
-                      Large-scale civic mobilization across digital and community platforms.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-accent-gold/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Award className="w-5 h-5 text-accent-gold" />
-                  </div>
-                  <div>
-                    <h4 className="text-white font-semibold mb-1">The Outcome</h4>
-                    <p className="text-white/60 text-sm">
-                      Successfully resisted constitutional changes that would weaken democratic checks.
-                    </p>
-                  </div>
-                </div>
-              </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="bg-gradient-to-br from-accent-coral/20 to-accent-cyan/20 rounded-3xl p-8 border border-white/10">
-                <h3 className="text-2xl font-bold text-white mb-6">The Impact</h3>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 bg-accent-coral rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <span className="text-white text-xs font-bold">1</span>
-                    </div>
-                    <p className="text-white/80">
-                      Demonstrated capacity to move beyond awareness-raising into large-scale civic action
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 bg-accent-cyan rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <span className="text-white text-xs font-bold">2</span>
-                    </div>
-                    <p className="text-white/80">
-                      Engaged citizens across digital and community platforms in meaningful participation
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 bg-accent-gold rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <span className="text-white text-xs font-bold">3</span>
-                    </div>
-                    <p className="text-white/80">
-                      Positioned citizens as active participants in governance, not passive observers
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 bg-accent-teal rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <span className="text-white text-xs font-bold">4</span>
-                    </div>
-                    <p className="text-white/80">
-                      Strengthened relationships with civil society and policy actors
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {achievements.map((achievement, index) => {
+                const metricNumericMatch = achievement.metric.match(/^([\d,]+)/);
+                const metricNumericValue = metricNumericMatch ? parseInt(metricNumericMatch[1].replace(/,/g, '')) : null;
+                const metricSuffix = achievement.metric.replace(/^[\d,]+/, '');
 
-              <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-accent-coral/30 rounded-lg" />
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent-cyan/10 rounded-lg -z-10" />
-            </motion.div>
+                // Alternate colors for visual variety
+                const colors = [
+                  { bg: 'from-accent-coral/20 to-accent-coral/10', border: 'border-accent-coral/30', metric: 'text-accent-coral' },
+                  { bg: 'from-accent-cyan/20 to-accent-cyan/10', border: 'border-accent-cyan/30', metric: 'text-accent-cyan' },
+                  { bg: 'from-accent-gold/20 to-accent-gold/10', border: 'border-accent-gold/30', metric: 'text-accent-gold' },
+                  { bg: 'from-purple-500/20 to-purple-500/10', border: 'border-purple-500/30', metric: 'text-purple-400' },
+                ];
+                const color = colors[index % colors.length];
+
+                return (
+                  <motion.div
+                    key={achievement.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className={`bg-gradient-to-br ${color.bg} rounded-2xl p-6 border ${color.border} h-full flex flex-col`}
+                  >
+                    <div className="mb-4">
+                      <p className={`text-3xl md:text-4xl font-bold ${color.metric} mb-1`}>
+                        {metricNumericValue ? (
+                          <AnimatedCounter value={metricNumericValue} suffix={metricSuffix} />
+                        ) : (
+                          achievement.metric
+                        )}
+                      </p>
+                      {achievement.metricLabel && (
+                        <p className="text-white/60 text-sm font-medium">{achievement.metricLabel}</p>
+                      )}
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-2">{achievement.title}</h3>
+                    {achievement.description && (
+                      <p className="text-white/70 text-sm leading-relaxed flex-1">{achievement.description}</p>
+                    )}
+                    {achievement.impact && (
+                      <p className="text-white/50 text-xs mt-4 pt-4 border-t border-white/10 italic">
+                        {achievement.impact}
+                      </p>
+                    )}
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
-        );
-      })()}
+        </section>
+      )}
 
       {/* Articles Section */}
       {articles.length > 0 && (
@@ -939,10 +886,10 @@ export default function HomeClient({
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="group bg-gray-50 dark:bg-navy-800/50 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 hover:border-accent-coral/50 transition-all"
+                  className="group bg-gray-50 dark:bg-navy-800/50 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 hover:border-accent-coral/50 transition-all flex flex-col h-full"
                 >
-                  {article.featuredImage && (
-                    <div className="relative aspect-video overflow-hidden">
+                  <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-navy-800 to-navy-900">
+                    {article.featuredImage ? (
                       <Image
                         src={getImageUrl(article.featuredImage)}
                         alt={article.title}
@@ -950,17 +897,24 @@ export default function HomeClient({
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      {article.category && (
-                        <span
-                          className="absolute top-4 left-4 text-white text-xs font-bold px-3 py-1 rounded-full"
-                          style={{ backgroundColor: article.category.color || '#F97316' }}
-                        >
-                          {article.category.name.toUpperCase()}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                  <div className="p-6">
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <Book className="w-12 h-12 text-white/20 mx-auto mb-2" />
+                          <span className="text-white/30 text-sm font-medium">Article</span>
+                        </div>
+                      </div>
+                    )}
+                    {article.category && (
+                      <span
+                        className="absolute top-4 left-4 text-white text-xs font-bold px-3 py-1 rounded-full"
+                        style={{ backgroundColor: article.category.color || '#F97316' }}
+                      >
+                        {article.category.name.toUpperCase()}
+                      </span>
+                    )}
+                  </div>
+                  <div className="p-6 flex-1 flex flex-col">
                     {article.publishDate && (
                       <div className="flex items-center gap-2 text-gray-500 dark:text-white/50 text-sm mb-3">
                         <Calendar className="w-4 h-4" />
@@ -971,13 +925,13 @@ export default function HomeClient({
                       {article.title}
                     </h3>
                     {article.excerpt && (
-                      <p className="text-gray-600 dark:text-white/60 text-sm mb-4 line-clamp-3">
+                      <p className="text-gray-600 dark:text-white/60 text-sm mb-4 line-clamp-3 flex-1">
                         {renderMarkdown(article.excerpt)}
                       </p>
                     )}
                     <Link
                       href={`/articles/${article.slug}`}
-                      className="inline-flex items-center gap-2 text-accent-coral font-medium text-sm hover:underline"
+                      className="inline-flex items-center gap-2 text-accent-coral font-medium text-sm hover:underline mt-auto"
                     >
                       Read More <ArrowRight className="w-4 h-4" />
                     </Link>
