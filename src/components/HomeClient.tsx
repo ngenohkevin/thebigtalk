@@ -393,19 +393,6 @@ export default function HomeClient({
               ))}
             </div>
             <div className="flex items-center gap-4">
-              <div className="hidden md:flex items-center gap-3">
-                {["TikTok", "IG", "X"].map((item) => (
-                  <a
-                    key={item}
-                    href={item === "TikTok" ? socialLinks.tiktok : item === "IG" ? socialLinks.instagram : socialLinks.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 dark:text-white/50 hover:text-accent-coral text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 dark:border-white/10 hover:border-accent-coral/50 transition-all"
-                  >
-                    {item}
-                  </a>
-                ))}
-              </div>
               <ThemeToggle className="text-navy-900 dark:text-white" />
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -456,21 +443,6 @@ export default function HomeClient({
                   </button>
                 )
               ))}
-              <div className="pt-4 border-t border-gray-200 dark:border-white/10 mt-4">
-                <div className="flex items-center gap-3 px-4">
-                  {["TikTok", "IG", "X"].map((item) => (
-                    <a
-                      key={item}
-                      href={item === "TikTok" ? socialLinks.tiktok : item === "IG" ? socialLinks.instagram : socialLinks.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-500 dark:text-white/50 hover:text-accent-coral text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 dark:border-white/10 hover:border-accent-coral/50 transition-all"
-                    >
-                      {item}
-                    </a>
-                  ))}
-                </div>
-              </div>
             </div>
           </motion.div>
         )}
