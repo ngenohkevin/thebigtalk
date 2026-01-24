@@ -856,7 +856,7 @@ export default function HomeClient({
             )}
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredArticles.map((article, index) => (
+              {filteredArticles.slice(0, 6).map((article, index) => (
                 <motion.article
                   key={article.id}
                   initial={{ opacity: 0, y: 30 }}
@@ -916,6 +916,25 @@ export default function HomeClient({
                 </motion.article>
               ))}
             </div>
+
+            {/* View All Articles button - show when there are more than 6 articles */}
+            {filteredArticles.length > 6 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: true }}
+                className="text-center mt-12"
+              >
+                <Link
+                  href="/articles"
+                  className="inline-flex items-center gap-2 bg-accent-coral hover:bg-accent-coral/90 text-white px-8 py-3 rounded-full font-semibold transition-colors"
+                >
+                  View All Articles ({filteredArticles.length})
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </motion.div>
+            )}
           </div>
         </section>
       )}
