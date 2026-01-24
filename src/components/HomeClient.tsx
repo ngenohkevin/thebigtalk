@@ -1147,38 +1147,61 @@ export default function HomeClient({
                 Kenya&apos;s civic education platform — making governance accessible, practical, and relevant to everyday citizens.
               </p>
               <div className="flex items-center gap-4">
-                <a
-                  href={socialLinks.tiktok}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white/70 hover:bg-accent-coral hover:text-white transition-all"
-                >
-                  <span className="text-xs font-bold">TT</span>
-                </a>
-                <a
-                  href={socialLinks.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white/70 hover:bg-accent-coral hover:text-white transition-all"
-                >
-                  <span className="text-xs font-bold">IG</span>
-                </a>
-                <a
-                  href={socialLinks.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white/70 hover:bg-accent-coral hover:text-white transition-all"
-                >
-                  <span className="text-xs font-bold">X</span>
-                </a>
-                <a
-                  href={socialLinks.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white/70 hover:bg-accent-coral hover:text-white transition-all"
-                >
-                  <span className="text-xs font-bold">FB</span>
-                </a>
+                {socialLinks.tiktok && (
+                  <a
+                    href={socialLinks.tiktok}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white/70 hover:bg-accent-coral hover:text-white transition-all"
+                    aria-label="TikTok"
+                  >
+                    <span className="text-xs font-bold">TT</span>
+                  </a>
+                )}
+                {socialLinks.instagram && (
+                  <a
+                    href={socialLinks.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white/70 hover:bg-accent-coral hover:text-white transition-all"
+                    aria-label="Instagram"
+                  >
+                    <span className="text-xs font-bold">IG</span>
+                  </a>
+                )}
+                {socialLinks.twitter && (
+                  <a
+                    href={socialLinks.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white/70 hover:bg-accent-coral hover:text-white transition-all"
+                    aria-label="X (Twitter)"
+                  >
+                    <span className="text-xs font-bold">X</span>
+                  </a>
+                )}
+                {socialLinks.facebook && (
+                  <a
+                    href={socialLinks.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white/70 hover:bg-accent-coral hover:text-white transition-all"
+                    aria-label="Facebook"
+                  >
+                    <span className="text-xs font-bold">FB</span>
+                  </a>
+                )}
+                {socialLinks.youtube && (
+                  <a
+                    href={socialLinks.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white/70 hover:bg-accent-coral hover:text-white transition-all"
+                    aria-label="YouTube"
+                  >
+                    <span className="text-xs font-bold">YT</span>
+                  </a>
+                )}
               </div>
             </div>
             <div>
@@ -1215,13 +1238,26 @@ export default function HomeClient({
             <div>
               <h4 className="text-white font-semibold mb-4">Content</h4>
               <ul className="space-y-2">
-                {["Civic Education", "Explainers", "Trends", "Latest Videos"].map((item) => (
-                  <li key={item}>
-                    <button className="text-white/50 hover:text-accent-coral text-sm transition-colors">
-                      {item}
+                {displayContentPillars.map((pillar) => (
+                  <li key={pillar.id}>
+                    <button
+                      onClick={() => scrollToSection('#what-we-do')}
+                      className="text-white/50 hover:text-accent-coral text-sm transition-colors"
+                    >
+                      {pillar.name}
                     </button>
                   </li>
                 ))}
+                {explainerVideos.length > 0 && (
+                  <li>
+                    <Link
+                      href="/videos"
+                      className="text-white/50 hover:text-accent-coral text-sm transition-colors"
+                    >
+                      Latest Videos
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
