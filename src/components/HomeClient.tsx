@@ -1097,22 +1097,55 @@ export default function HomeClient({
             })}
           </div>
 
-          {/* Mission Statement */}
+          {/* Mission & Vision Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
-            className="mt-16 text-center"
+            className="mt-16"
           >
-            <div className="bg-navy-900 dark:bg-navy-800 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto">
-              <p className="text-white/80 text-lg md:text-xl leading-relaxed mb-6">
-                We exist to build a culture of <span className="text-accent-coral font-semibold">truth over noise</span>, <span className="text-accent-cyan font-semibold">knowledge over fear</span>, and <span className="text-accent-gold font-semibold">action over apathy</span>.
-              </p>
-              <p className="text-white font-bold text-xl md:text-2xl">
-                We don&apos;t just talk about problems — we spark solutions.
-              </p>
-            </div>
+            {(siteSettings?.mission || siteSettings?.vision) ? (
+              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                {siteSettings?.mission && (
+                  <div className="bg-gradient-to-br from-accent-coral/10 to-accent-coral/5 dark:from-accent-coral/20 dark:to-accent-coral/10 rounded-2xl p-8 border border-accent-coral/20">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 bg-accent-coral/20 rounded-lg flex items-center justify-center">
+                        <Target className="w-5 h-5 text-accent-coral" />
+                      </div>
+                      <h3 className="text-xl font-bold text-navy-900 dark:text-white">Our Mission</h3>
+                    </div>
+                    <div className="text-gray-700 dark:text-white/70 leading-relaxed prose prose-sm dark:prose-invert max-w-none">
+                      {renderMarkdown(siteSettings.mission)}
+                    </div>
+                  </div>
+                )}
+                {siteSettings?.vision && (
+                  <div className="bg-gradient-to-br from-accent-cyan/10 to-accent-cyan/5 dark:from-accent-cyan/20 dark:to-accent-cyan/10 rounded-2xl p-8 border border-accent-cyan/20">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 bg-accent-cyan/20 rounded-lg flex items-center justify-center">
+                        <Lightbulb className="w-5 h-5 text-accent-cyan" />
+                      </div>
+                      <h3 className="text-xl font-bold text-navy-900 dark:text-white">Our Vision</h3>
+                    </div>
+                    <div className="text-gray-700 dark:text-white/70 leading-relaxed prose prose-sm dark:prose-invert max-w-none">
+                      {renderMarkdown(siteSettings.vision)}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-center">
+                <div className="bg-navy-900 dark:bg-navy-800 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto">
+                  <p className="text-white/80 text-lg md:text-xl leading-relaxed mb-6">
+                    We exist to build a culture of <span className="text-accent-coral font-semibold">truth over noise</span>, <span className="text-accent-cyan font-semibold">knowledge over fear</span>, and <span className="text-accent-gold font-semibold">action over apathy</span>.
+                  </p>
+                  <p className="text-white font-bold text-xl md:text-2xl">
+                    We don&apos;t just talk about problems — we spark solutions.
+                  </p>
+                </div>
+              </div>
+            )}
           </motion.div>
         </div>
       </section>
