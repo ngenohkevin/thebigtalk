@@ -168,6 +168,20 @@ export interface SiteSettings {
   twitterUrl?: string;
   facebookUrl?: string;
   youtubeUrl?: string;
+  watchOurStoryUrl?: string;
+  watchOurStoryTitle?: string;
+}
+
+export interface ContentPillar {
+  id: number;
+  documentId: string;
+  name: string;
+  tagline: string;
+  description: string;
+  extendedDescription?: string;
+  icon: 'shield' | 'lightbulb' | 'target' | 'users' | 'scale' | 'megaphone' | 'book' | 'globe';
+  color: 'emerald' | 'blue' | 'purple' | 'coral' | 'cyan' | 'gold';
+  order: number;
 }
 
 // API functions
@@ -251,6 +265,12 @@ export async function getAchievements(options?: { featured?: boolean }) {
 export async function getSiteSettings() {
   return fetchStrapi<SiteSettings>('/site-setting', {
     'populate': 'logo',
+  });
+}
+
+export async function getContentPillars() {
+  return fetchStrapi<ContentPillar[]>('/content-pillars', {
+    'sort': 'order:asc',
   });
 }
 

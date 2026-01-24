@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "content_pillars",
+  "info": {
+    "singularName": "content-pillar",
+    "pluralName": "content-pillars",
+    "displayName": "Content Pillar",
+    "description": "What We Do - Content pillars explaining the organization's focus areas"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "tagline": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "extendedDescription": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": ["shield", "lightbulb", "target", "users", "scale", "megaphone", "book", "globe"],
+      "required": true,
+      "default": "shield"
+    },
+    "color": {
+      "type": "enumeration",
+      "enum": ["emerald", "blue", "purple", "coral", "cyan", "gold"],
+      "required": true,
+      "default": "emerald"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

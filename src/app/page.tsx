@@ -8,6 +8,7 @@ import {
   getImpactStats,
   getAchievements,
   getSiteSettings,
+  getContentPillars,
 } from "@/lib/strapi";
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "https://thebigtalk-cms.iopulse.cloud";
@@ -23,6 +24,7 @@ export default async function Home() {
     impactStatsRes,
     achievementsRes,
     siteSettingsRes,
+    contentPillarsRes,
   ] = await Promise.all([
     getTeamMembers().catch(() => ({ data: [] })),
     getCoreValues().catch(() => ({ data: [] })),
@@ -32,6 +34,7 @@ export default async function Home() {
     getImpactStats().catch(() => ({ data: [] })),
     getAchievements({ featured: true }).catch(() => ({ data: [] })),
     getSiteSettings().catch(() => ({ data: null })),
+    getContentPillars().catch(() => ({ data: [] })),
   ]);
 
   return (
@@ -44,6 +47,7 @@ export default async function Home() {
       impactStats={impactStatsRes.data || []}
       achievements={achievementsRes.data || []}
       siteSettings={siteSettingsRes.data || null}
+      contentPillars={contentPillarsRes.data || []}
       strapiUrl={STRAPI_URL}
     />
   );

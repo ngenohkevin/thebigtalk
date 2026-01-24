@@ -28,6 +28,8 @@ import {
   X,
   Calendar,
   ArrowRight,
+  Book,
+  Globe,
 } from "lucide-react";
 import type {
   TeamMember,
@@ -38,6 +40,7 @@ import type {
   ImpactStat,
   Achievement,
   SiteSettings,
+  ContentPillar,
 } from "@/lib/strapi";
 import { getYouTubeVideoId, getYouTubeThumbnail } from "@/lib/strapi";
 import VideoModal from "@/components/VideoModal";
@@ -52,6 +55,7 @@ interface HomeClientProps {
   impactStats: ImpactStat[];
   achievements: Achievement[];
   siteSettings: SiteSettings | null;
+  contentPillars: ContentPillar[];
   strapiUrl: string;
 }
 
@@ -99,7 +103,93 @@ const iconMap = {
   scale: Scale,
   users: Users,
   target: Target,
+  megaphone: Megaphone,
+  book: Book,
+  globe: Globe,
 };
+
+// Color map for content pillars
+const colorMap = {
+  emerald: {
+    bg: 'from-emerald-50 to-white dark:from-emerald-900/20 dark:to-navy-800/50',
+    border: 'border-emerald-200 dark:border-emerald-500/20',
+    iconBg: 'bg-emerald-500/20',
+    iconText: 'text-emerald-600 dark:text-emerald-400',
+    tagline: 'text-emerald-600 dark:text-emerald-400',
+  },
+  blue: {
+    bg: 'from-blue-50 to-white dark:from-blue-900/20 dark:to-navy-800/50',
+    border: 'border-blue-200 dark:border-blue-500/20',
+    iconBg: 'bg-blue-500/20',
+    iconText: 'text-blue-600 dark:text-blue-400',
+    tagline: 'text-blue-600 dark:text-blue-400',
+  },
+  purple: {
+    bg: 'from-purple-50 to-white dark:from-purple-900/20 dark:to-navy-800/50',
+    border: 'border-purple-200 dark:border-purple-500/20',
+    iconBg: 'bg-purple-500/20',
+    iconText: 'text-purple-600 dark:text-purple-400',
+    tagline: 'text-purple-600 dark:text-purple-400',
+  },
+  coral: {
+    bg: 'from-orange-50 to-white dark:from-orange-900/20 dark:to-navy-800/50',
+    border: 'border-orange-200 dark:border-orange-500/20',
+    iconBg: 'bg-accent-coral/20',
+    iconText: 'text-accent-coral',
+    tagline: 'text-accent-coral',
+  },
+  cyan: {
+    bg: 'from-cyan-50 to-white dark:from-cyan-900/20 dark:to-navy-800/50',
+    border: 'border-cyan-200 dark:border-cyan-500/20',
+    iconBg: 'bg-cyan-500/20',
+    iconText: 'text-cyan-600 dark:text-cyan-400',
+    tagline: 'text-cyan-600 dark:text-cyan-400',
+  },
+  gold: {
+    bg: 'from-yellow-50 to-white dark:from-yellow-900/20 dark:to-navy-800/50',
+    border: 'border-yellow-200 dark:border-yellow-500/20',
+    iconBg: 'bg-accent-gold/20',
+    iconText: 'text-accent-gold',
+    tagline: 'text-accent-gold',
+  },
+};
+
+// Default content pillars (fallback if CMS is empty)
+const defaultContentPillars: ContentPillar[] = [
+  {
+    id: 1,
+    documentId: 'civic-education',
+    name: 'Civic Education',
+    tagline: 'To build an informed, empowered citizenry',
+    description: "Kenya's evolving democratic landscape demands informed citizen engagement. Civic education is the foundation of a functioning democracy.",
+    extendedDescription: "It equips Kenyans with the knowledge to understand their rights, responsibilities, and the systems that govern them. Without it, citizens are vulnerable to manipulation, misinformation, and apathy.",
+    icon: 'shield',
+    color: 'emerald',
+    order: 1,
+  },
+  {
+    id: 2,
+    documentId: 'explainer',
+    name: 'Explainer',
+    tagline: 'Because clarity is power',
+    description: "Governance is often wrapped in jargon, legalese, and emotion. Deep-dive explainers break down bills, policies, and political debates into simple, relatable language.",
+    extendedDescription: "Making civic content accessible to all — so every Kenyan can understand the decisions that affect their daily lives.",
+    icon: 'lightbulb',
+    color: 'blue',
+    order: 2,
+  },
+  {
+    id: 3,
+    documentId: 'trends',
+    name: 'Trends',
+    tagline: 'To stay relevant, responsive, and impactful',
+    description: "Civic education must reflect the issues Kenyans are facing now — from controversial bills to youth-led movements.",
+    extendedDescription: "By aligning content with current governance trends, we meet people where they are and ensure our work drives real impact.",
+    icon: 'target',
+    color: 'purple',
+    order: 3,
+  },
+];
 
 // Default categories (fallback if none from Strapi)
 const defaultCategories = [
@@ -149,6 +239,7 @@ export default function HomeClient({
   impactStats,
   achievements,
   siteSettings,
+  contentPillars,
   strapiUrl,
 }: HomeClientProps) {
   // Use site settings for social links or fallback to defaults
@@ -169,6 +260,10 @@ export default function HomeClient({
   const [activeFilter, setActiveFilter] = useState("All");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [storyModalOpen, setStoryModalOpen] = useState(false);
+
+  // Use content pillars from CMS or fallback to defaults
+  const displayContentPillars = contentPillars.length > 0 ? contentPillars : defaultContentPillars;
 
   // Scroll to hash on page load and track section visibility
   useEffect(() => {
@@ -432,13 +527,19 @@ export default function HomeClient({
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </button>
                   <button
-                    onClick={() => scrollToSection('#team')}
+                    onClick={() => {
+                      if (siteSettings?.watchOurStoryUrl) {
+                        setStoryModalOpen(true);
+                      } else {
+                        scrollToSection('#team');
+                      }
+                    }}
                     className="group flex items-center gap-3 border border-white/30 hover:border-white/60 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition-all"
                   >
                     <span className="w-8 h-8 bg-accent-coral rounded-full flex items-center justify-center">
                       <Play className="w-4 h-4 text-white ml-0.5" fill="white" />
                     </span>
-                    <span>Watch Our Story</span>
+                    <span>{siteSettings?.watchOurStoryTitle || "Watch Our Story"}</span>
                   </button>
                 </div>
               </div>
@@ -969,80 +1070,39 @@ export default function HomeClient({
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Civic Education */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-900/20 dark:to-navy-800/50 rounded-2xl p-8 border border-emerald-200 dark:border-emerald-500/20 h-full"
-            >
-              <div className="w-14 h-14 bg-emerald-500/20 rounded-xl flex items-center justify-center mb-6">
-                <Shield className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
-              </div>
-              <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-2">
-                Civic Education
-              </h3>
-              <p className="text-emerald-600 dark:text-emerald-400 text-sm font-medium mb-4">
-                To build an informed, empowered citizenry
-              </p>
-              <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
-                Kenya&apos;s evolving democratic landscape demands informed citizen engagement. Civic education is the foundation of a functioning democracy.
-              </p>
-              <p className="text-gray-600 dark:text-white/70 leading-relaxed">
-                It equips Kenyans with the knowledge to understand their rights, responsibilities, and the systems that govern them. Without it, citizens are vulnerable to manipulation, misinformation, and apathy.
-              </p>
-            </motion.div>
+            {displayContentPillars.map((pillar, index) => {
+              const Icon = iconMap[pillar.icon as keyof typeof iconMap] || Shield;
+              const colors = colorMap[pillar.color as keyof typeof colorMap] || colorMap.emerald;
 
-            {/* Explainer */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/20 dark:to-navy-800/50 rounded-2xl p-8 border border-blue-200 dark:border-blue-500/20 h-full"
-            >
-              <div className="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
-                <Lightbulb className="w-7 h-7 text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-2">
-                Explainer
-              </h3>
-              <p className="text-blue-600 dark:text-blue-400 text-sm font-medium mb-4">
-                Because clarity is power
-              </p>
-              <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
-                Governance is often wrapped in jargon, legalese, and emotion. Deep-dive explainers break down bills, policies, and political debates into simple, relatable language.
-              </p>
-              <p className="text-gray-600 dark:text-white/70 leading-relaxed">
-                Making civic content accessible to all — so every Kenyan can understand the decisions that affect their daily lives.
-              </p>
-            </motion.div>
-
-            {/* Trends */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-navy-800/50 rounded-2xl p-8 border border-purple-200 dark:border-purple-500/20 h-full"
-            >
-              <div className="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
-                <Target className="w-7 h-7 text-purple-600 dark:text-purple-400" />
-              </div>
-              <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-2">
-                Trends
-              </h3>
-              <p className="text-purple-600 dark:text-purple-400 text-sm font-medium mb-4">
-                To stay relevant, responsive, and impactful
-              </p>
-              <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
-                Civic education must reflect the issues Kenyans are facing now — from controversial bills to youth-led movements.
-              </p>
-              <p className="text-gray-600 dark:text-white/70 leading-relaxed">
-                By aligning content with current governance trends, we meet people where they are and ensure our work drives real impact.
-              </p>
-            </motion.div>
+              return (
+                <motion.div
+                  key={pillar.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className={`bg-gradient-to-br ${colors.bg} rounded-2xl p-8 border ${colors.border} h-full`}
+                >
+                  <div className={`w-14 h-14 ${colors.iconBg} rounded-xl flex items-center justify-center mb-6`}>
+                    <Icon className={`w-7 h-7 ${colors.iconText}`} />
+                  </div>
+                  <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-2">
+                    {pillar.name}
+                  </h3>
+                  <p className={`${colors.tagline} text-sm font-medium mb-4`}>
+                    {pillar.tagline}
+                  </p>
+                  <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
+                    {pillar.description}
+                  </p>
+                  {pillar.extendedDescription && (
+                    <p className="text-gray-600 dark:text-white/70 leading-relaxed">
+                      {pillar.extendedDescription}
+                    </p>
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
 
           {/* Mission Statement */}
@@ -1186,6 +1246,16 @@ export default function HomeClient({
           onClose={() => setVideoModalOpen(false)}
           youtubeUrl={featuredVideo.youtubeUrl}
           title={featuredVideo.title}
+        />
+      )}
+
+      {/* Video Modal for Watch Our Story */}
+      {siteSettings?.watchOurStoryUrl && (
+        <VideoModal
+          isOpen={storyModalOpen}
+          onClose={() => setStoryModalOpen(false)}
+          youtubeUrl={siteSettings.watchOurStoryUrl}
+          title={siteSettings.watchOurStoryTitle || "Watch Our Story"}
         />
       )}
     </div>
