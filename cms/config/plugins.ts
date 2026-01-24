@@ -7,9 +7,9 @@ export default ({ env }) => ({
   'users-permissions': {
     enabled: true,
   },
-  // MCP plugin for AI integration
+  // MCP plugin for AI integration (temporarily disabled to debug Content Manager)
   mcp: {
-    enabled: true,
+    enabled: false,
     config: {
       session: {
         type: 'memory',

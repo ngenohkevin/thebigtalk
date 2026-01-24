@@ -16,9 +16,9 @@
   },
   "dependencies": {
     "@sensinum/strapi-plugin-mcp": "^1.1.0",
-    "@strapi/plugin-cloud": "5.33.2",
-    "@strapi/plugin-users-permissions": "5.33.2",
-    "@strapi/strapi": "5.33.2",
+    "@strapi/plugin-cloud": "5.33.4",
+    "@strapi/plugin-users-permissions": "5.33.4",
+    "@strapi/strapi": "5.33.4",
     "pg": "8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
