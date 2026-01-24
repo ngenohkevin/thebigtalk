@@ -755,6 +755,9 @@ export default function HomeClient({
                 const metricNumericValue = metricNumericMatch ? parseInt(metricNumericMatch[1].replace(/,/g, '')) : null;
                 const metricSuffix = achievement.metric.replace(/^[\d,]+/, '');
 
+                // Check if metric is a year (4-digit number starting with 19 or 20, no suffix)
+                const isYear = metricNumericValue && metricNumericValue >= 1900 && metricNumericValue <= 2100 && !metricSuffix;
+
                 // Alternate colors for visual variety
                 const colors = [
                   { bg: 'from-accent-coral/20 to-accent-coral/10', border: 'border-accent-coral/30', metric: 'text-accent-coral' },
@@ -775,7 +778,9 @@ export default function HomeClient({
                   >
                     <div className="mb-4">
                       <p className={`text-3xl md:text-4xl font-bold ${color.metric} mb-1`}>
-                        {metricNumericValue ? (
+                        {isYear ? (
+                          achievement.metric
+                        ) : metricNumericValue ? (
                           <AnimatedCounter value={metricNumericValue} suffix={metricSuffix} />
                         ) : (
                           achievement.metric
