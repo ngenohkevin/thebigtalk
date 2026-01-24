@@ -184,7 +184,7 @@ export default function HomeClient({
     }
 
     // Update URL hash based on visible section
-    const sections = ['about', 'team', 'impact', 'articles', 'videos', 'contact'];
+    const sections = ['about', 'what-we-do', 'team', 'impact', 'articles', 'videos', 'contact'];
     const observers: IntersectionObserver[] = [];
 
     sections.forEach((sectionId) => {
@@ -425,7 +425,7 @@ export default function HomeClient({
 
                 <div className="flex flex-wrap items-center gap-4">
                   <button
-                    onClick={() => scrollToSection('#pillars')}
+                    onClick={() => scrollToSection('#what-we-do')}
                     className="group flex items-center gap-3 bg-white text-navy-950 px-6 py-3 rounded-full font-semibold hover:bg-accent-cyan transition-colors"
                   >
                     <span>Explore What We Do</span>
@@ -946,15 +946,15 @@ export default function HomeClient({
         </div>
       </section>
 
-      {/* Content Pillars Section */}
-      <section id="pillars" className="py-20 px-6 bg-white dark:bg-navy-900 transition-colors">
+      {/* What We Do Section */}
+      <section id="what-we-do" className="py-20 px-6 bg-white dark:bg-navy-900 transition-colors">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
             <p className="text-accent-coral font-mono text-sm mb-4 tracking-wider">
               WHAT WE DO
@@ -962,58 +962,106 @@ export default function HomeClient({
             <h2 className="text-3xl md:text-4xl font-bold text-navy-900 dark:text-white mb-4">
               Our Content Pillars
             </h2>
-            <p className="text-gray-600 dark:text-white/60 max-w-2xl mx-auto">
-              Focused areas that drive our mission to make governance accessible to every Kenyan.
+            <p className="text-gray-600 dark:text-white/60 max-w-3xl mx-auto text-lg">
+              We break down bills, policies, political debates, and public processes into clear and relatable conversations.
+              <span className="font-medium text-navy-900 dark:text-white"> Hakuna maneno mingi. Hakuna propaganda.</span> Just truth, clarity, and context.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {displayCategories.slice(0, 6).map((category, index) => {
-              const articleCount = articles.filter(a => a.category?.slug === category.slug).length;
-              return (
-                <motion.div
-                  key={category.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  onClick={() => {
-                    setActiveFilter(category.name);
-                    document.querySelector('#articles')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="group bg-gray-50 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 dark:border-white/10 hover:border-accent-coral/50 hover:bg-white dark:hover:bg-white/10 transition-all cursor-pointer h-full"
-                >
-                  <div className="flex items-center gap-2 mb-4">
-                    <span
-                      className="text-xs font-bold uppercase"
-                      style={{ color: category.color || '#F97316' }}
-                    >
-                      {category.name}
-                    </span>
-                    {articleCount > 0 && (
-                      <span
-                        className="text-xs px-2 py-0.5 rounded-full"
-                        style={{
-                          backgroundColor: `${category.color || '#F97316'}20`,
-                          color: category.color || '#F97316'
-                        }}
-                      >
-                        {articleCount} article{articleCount !== 1 ? 's' : ''}
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
-                    {renderMarkdown(category.description || `Content related to ${category.name}`)}
-                  </p>
-                  <div className="pt-4 border-t border-gray-200 dark:border-white/10">
-                    <span className="text-gray-500 dark:text-white/50 text-sm group-hover:text-accent-coral transition-colors flex items-center gap-1">
-                      View articles <ArrowRight className="w-3 h-3" />
-                    </span>
-                  </div>
-                </motion.div>
-              );
-            })}
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Civic Education */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0 }}
+              viewport={{ once: true }}
+              className="bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-900/20 dark:to-navy-800/50 rounded-2xl p-8 border border-emerald-200 dark:border-emerald-500/20 h-full"
+            >
+              <div className="w-14 h-14 bg-emerald-500/20 rounded-xl flex items-center justify-center mb-6">
+                <Shield className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-2">
+                Civic Education
+              </h3>
+              <p className="text-emerald-600 dark:text-emerald-400 text-sm font-medium mb-4">
+                To build an informed, empowered citizenry
+              </p>
+              <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
+                Kenya&apos;s evolving democratic landscape demands informed citizen engagement. Civic education is the foundation of a functioning democracy.
+              </p>
+              <p className="text-gray-600 dark:text-white/70 leading-relaxed">
+                It equips Kenyans with the knowledge to understand their rights, responsibilities, and the systems that govern them. Without it, citizens are vulnerable to manipulation, misinformation, and apathy.
+              </p>
+            </motion.div>
+
+            {/* Explainer */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/20 dark:to-navy-800/50 rounded-2xl p-8 border border-blue-200 dark:border-blue-500/20 h-full"
+            >
+              <div className="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
+                <Lightbulb className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-2">
+                Explainer
+              </h3>
+              <p className="text-blue-600 dark:text-blue-400 text-sm font-medium mb-4">
+                Because clarity is power
+              </p>
+              <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
+                Governance is often wrapped in jargon, legalese, and emotion. Deep-dive explainers break down bills, policies, and political debates into simple, relatable language.
+              </p>
+              <p className="text-gray-600 dark:text-white/70 leading-relaxed">
+                Making civic content accessible to all — so every Kenyan can understand the decisions that affect their daily lives.
+              </p>
+            </motion.div>
+
+            {/* Trends */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-navy-800/50 rounded-2xl p-8 border border-purple-200 dark:border-purple-500/20 h-full"
+            >
+              <div className="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
+                <Target className="w-7 h-7 text-purple-600 dark:text-purple-400" />
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-2">
+                Trends
+              </h3>
+              <p className="text-purple-600 dark:text-purple-400 text-sm font-medium mb-4">
+                To stay relevant, responsive, and impactful
+              </p>
+              <p className="text-gray-600 dark:text-white/70 leading-relaxed mb-4">
+                Civic education must reflect the issues Kenyans are facing now — from controversial bills to youth-led movements.
+              </p>
+              <p className="text-gray-600 dark:text-white/70 leading-relaxed">
+                By aligning content with current governance trends, we meet people where they are and ensure our work drives real impact.
+              </p>
+            </motion.div>
           </div>
+
+          {/* Mission Statement */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center"
+          >
+            <div className="bg-navy-900 dark:bg-navy-800 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto">
+              <p className="text-white/80 text-lg md:text-xl leading-relaxed mb-6">
+                We exist to build a culture of <span className="text-accent-coral font-semibold">truth over noise</span>, <span className="text-accent-cyan font-semibold">knowledge over fear</span>, and <span className="text-accent-gold font-semibold">action over apathy</span>.
+              </p>
+              <p className="text-white font-bold text-xl md:text-2xl">
+                We don&apos;t just talk about problems — we spark solutions.
+              </p>
+            </div>
+          </motion.div>
         </div>
       </section>
 

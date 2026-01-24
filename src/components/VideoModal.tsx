@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import { X } from "lucide-react";
 
 interface VideoModalProps {
@@ -20,21 +20,34 @@ function getYouTubeVideoId(url: string): string | null {
 export default function VideoModal({ isOpen, onClose, youtubeUrl, title }: VideoModalProps) {
   const videoId = getYouTubeVideoId(youtubeUrl);
 
-  // Handle escape key
-  const handleEscape = useCallback((e: KeyboardEvent) => {
-    if (e.key === "Escape") onClose();
-  }, [onClose]);
+  // Handle escape key - use ref to avoid effect re-runs
+  const onCloseRef = React.useRef(onClose);
+  onCloseRef.current = onClose;
 
+  // Separate effect for keyboard handling
   useEffect(() => {
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "unset";
+    if (!isOpen) return;
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onCloseRef.current();
     };
-  }, [isOpen, handleEscape]);
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isOpen]);
+
+  // Separate effect for body scroll locking
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Save the original overflow value
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
 
   if (!isOpen || !videoId) return null;
 
