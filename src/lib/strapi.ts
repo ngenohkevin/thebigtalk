@@ -264,7 +264,7 @@ export async function getAchievements(options?: { featured?: boolean }) {
 
 export async function getSiteSettings() {
   return fetchStrapi<SiteSettings>('/site-setting', {
-    'populate': 'logo',
+    'populate': '*',
   });
 }
 
