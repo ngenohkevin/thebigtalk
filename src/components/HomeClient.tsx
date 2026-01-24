@@ -213,14 +213,6 @@ const defaultCategories = [
   },
 ];
 
-// Default social links (fallback if Strapi settings not available)
-const defaultSocialLinks = {
-  tiktok: "https://tiktok.com/@thebigtalkke",
-  instagram: "https://instagram.com/thebigtalkke",
-  twitter: "https://x.com/thebigtalkke",
-  facebook: "https://facebook.com/thebigtalkke",
-  youtube: "",
-};
 
 // Default impact stats (fallback)
 const defaultImpactStats = [
@@ -242,13 +234,13 @@ export default function HomeClient({
   contentPillars,
   strapiUrl,
 }: HomeClientProps) {
-  // Use site settings for social links or fallback to defaults
+  // Use site settings for social links - only show what's in CMS
   const socialLinks = {
-    tiktok: siteSettings?.tiktokUrl || defaultSocialLinks.tiktok,
-    instagram: siteSettings?.instagramUrl || defaultSocialLinks.instagram,
-    twitter: siteSettings?.twitterUrl || defaultSocialLinks.twitter,
-    facebook: siteSettings?.facebookUrl || defaultSocialLinks.facebook,
-    youtube: siteSettings?.youtubeUrl || defaultSocialLinks.youtube,
+    tiktok: siteSettings?.tiktokUrl || '',
+    instagram: siteSettings?.instagramUrl || '',
+    twitter: siteSettings?.twitterUrl || '',
+    facebook: siteSettings?.facebookUrl || '',
+    youtube: siteSettings?.youtubeUrl || '',
   };
 
   // Use impact stats from Strapi or fallback
@@ -1211,7 +1203,7 @@ export default function HomeClient({
                   { name: "About Us", href: "#about" },
                   { name: "Our Team", href: "#team" },
                   { name: "Impact", href: "#impact" },
-                  { name: "Articles", href: "#articles" },
+                  { name: "Articles", href: "/articles", external: true },
                   { name: "Videos", href: "/videos", external: true },
                   { name: "Contact", href: "#contact" },
                 ].map((item) => (
