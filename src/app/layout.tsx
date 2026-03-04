@@ -98,8 +98,8 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: "The Big Talk",
   alternateName: "The Big Talk Kenya",
-  url: "https://thebigtalk.iopulse.cloud",
-  logo: "https://thebigtalk.iopulse.cloud/images/logo.jpeg",
+  url: siteUrl,
+  logo: `${siteUrl}/images/logo.jpeg`,
   description:
     "Kenya's leading civic education platform. We simplify governance, explain policies, and empower citizens to participate in democracy.",
   foundingDate: "2023",
@@ -113,6 +113,7 @@ const organizationJsonLd = {
     "https://instagram.com/thebigtalkke",
     "https://x.com/thebigtalkke",
     "https://facebook.com/thebigtalkke",
+    "https://youtube.com/@thebigtalkke",
   ],
   contactPoint: {
     "@type": "ContactPoint",
@@ -126,7 +127,7 @@ const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "The Big Talk",
-  url: "https://thebigtalk.iopulse.cloud",
+  url: siteUrl,
   description: "Kenya's leading civic education platform",
   publisher: {
     "@type": "Organization",
@@ -136,7 +137,7 @@ const websiteJsonLd = {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://thebigtalk.iopulse.cloud/articles?q={search_term_string}",
+      urlTemplate: `${siteUrl}/articles?q={search_term_string}`,
     },
     "query-input": "required name=search_term_string",
   },

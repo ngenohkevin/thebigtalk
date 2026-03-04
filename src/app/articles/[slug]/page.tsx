@@ -55,12 +55,60 @@ export default async function ArticlePage({ params }: PageProps) {
     articleSection: article.category?.name || "Civic Education",
   };
 
+  // Breadcrumb structured data
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Articles",
+        item: `${siteUrl}/articles`,
+      },
+      ...(article.category
+        ? [
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: article.category.name,
+              item: `${siteUrl}/articles?category=${article.category.slug}`,
+            },
+            {
+              "@type": "ListItem",
+              position: 4,
+              name: article.title,
+              item: `${siteUrl}/articles/${slug}`,
+            },
+          ]
+        : [
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: article.title,
+              item: `${siteUrl}/articles/${slug}`,
+            },
+          ]),
+    ],
+  };
+
   return (
     <>
       <Script
         id="article-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <Script
+        id="breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
     <main id="main-content" className="min-h-screen bg-white dark:bg-navy-950 transition-colors">
       {/* Header */}
